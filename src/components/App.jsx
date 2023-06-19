@@ -14,7 +14,7 @@ import DepressionPage from './Pages/DepressionPage/DepressionPage';
 import StressPage from './Pages/StressPage/StressPage';
 import AnxietyPage from './Pages/AnxietyPage/AnxietyPage';
 import ResultsPage from './Pages/ResultsPage/ResultsPage';
-import ProfilePage from './Pages/ProfilePage/ProfilePage';
+import ProfilePage from './Pages/Profile/Profile';
 import ResourcesPage from './Pages/ResourcesPage/ResourcesPage';
 import './App.css';
 

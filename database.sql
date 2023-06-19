@@ -31,5 +31,6 @@ CREATE TABLE "resources" (
   "resource_type" VARCHAR(80) NOT NULL,
   "resource_link" TEXT NOT NULL,
   "resource_description" TEXT NOT NULL,
-  "createdate" DATE NOT NULL
+  "createdate" DATE NOT NULL,
+  "user_id" Integer
 );
