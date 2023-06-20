@@ -39,5 +39,30 @@ router.post('/entries', (req, res) => {
       });
   });
 
+  // PUT route to update a journal entry
+router.put('/entries/:id', (req, res) => {
+    // Extract entry ID from the request parameters
+    const entryId = req.params.id;
+    // Extract updated entry text from the request body
+    const { entry_text } = req.body;
+  
+    // Perform a database query to update the journal entry
+    const queryText = 'UPDATE entries SET entry_text = $1 WHERE id = $2';
+    const values = [entry_text, entryId];
+    pool
+      .query(queryText, values)
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.error('Error updating journal entry:', error);
+        res.sendStatus(500);
+      });
+  });
+
+//   router.delete('/entries/:id, (req, res) => {
+
+// })
+
 
 module.exports = router;
