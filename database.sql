@@ -12,9 +12,9 @@ CREATE TABLE "user" (
 CREATE TABLE "entries" (
   "id" SERIAL PRIMARY KEY,
   "entry_text" TEXT NOT NULL,
-  "rating" INTEGER NOT NULL,
   "user_id" INTEGER REFERENCES "user",
-  "createdate" DATE NOT NULL
+  "createdate" DATE NOT NULL,
+  "category" VARCHAR(80) DEFAULT 'general'
 );
 
 CREATE TABLE "response" (
