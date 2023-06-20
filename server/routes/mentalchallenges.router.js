@@ -19,13 +19,24 @@ router.get('/depression', (req, res) => {
         res.sendStatus(500);
       });
   });
-  // Route for submitting depression questionnaire responses
-  router.post('/depression/response', (req, res) => {
-    // Handle submitting depression questionnaire responses
-    // Example:
-    const { answers } = req.body;
-    // Process the submitted answers and save them to the database
-    res.sendStatus(200);
+ 
+// POST route to submit depression response
+router.post('/depression', (req, res) => {
+    const { user_id, score, note } = req.body;
+    
+    // Perform a database query to insert the depression response
+    const queryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
+    const values = [user_id, 'depression', score, note, new Date()];
+    
+    pool
+      .query(queryText, values)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.error('Error submitting depression response:', error);
+        res.sendStatus(500);
+      });
   });
   
 
