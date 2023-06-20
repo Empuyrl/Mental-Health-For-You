@@ -32,9 +32,11 @@ router.get('/depression', (req, res) => {
 // GET route to fetch anxiety response
 router.get('/anxiety', (req, res) => {
     // Perform a database query to retrieve the anxiety response
-    const queryText = 'SELECT * FROM anxiety_response';
+    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1';
+    const values = ['anxiety'];
+    
     pool
-      .query(queryText)
+      .query(queryText, values)
       .then((result) => {
         const response = result.rows[0];
         res.send(response);
@@ -53,9 +55,11 @@ router.post('/anxiety/response', (req, res) => {
 // GET route to fetch stress response
 router.get('/stress', (req, res) => {
     // Perform a database query to retrieve the stress response
-    const queryText = 'SELECT * FROM stress_response';
+    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1';
+    const values = ['stress'];
+    
     pool
-      .query(queryText)
+      .query(queryText, values)
       .then((result) => {
         const response = result.rows[0];
         res.send(response);
