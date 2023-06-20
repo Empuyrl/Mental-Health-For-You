@@ -60,9 +60,24 @@ router.put('/entries/:id', (req, res) => {
       });
   });
 
-//   router.delete('/entries/:id, (req, res) => {
-
-// })
+// DELETE route to delete a journal entry
+router.delete('/entries/:id', (req, res) => {
+    // Extract entry ID from the request parameters
+    const entryId = req.params.id;
+  
+    // Perform a database query to delete the journal entry
+    const queryText = 'DELETE FROM entries WHERE id = $1';
+    const values = [entryId];
+    pool
+      .query(queryText, values)
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.error('Error deleting journal entry:', error);
+        res.sendStatus(500);
+      });
+  });
 
 
 module.exports = router;
