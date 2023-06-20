@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const pool = require('../modules/pool'); 
 
 // GET route to fetch depression response
 router.get('/depression', (req, res) => {
     // Perform a database query to retrieve the depression response
-    const queryText = 'SELECT * FROM depression_response';
+    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1';
+    const values = ['depression'];
+    
     pool
-      .query(queryText)
+      .query(queryText, values)
       .then((result) => {
         const response = result.rows[0];
         res.send(response);
