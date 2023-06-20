@@ -58,10 +58,24 @@ router.get('/anxiety', (req, res) => {
       });
   });
 
-// Route for submitting anxiety questionnaire responses
-router.post('/anxiety/response', (req, res) => {
-  // Handle submitting anxiety questionnaire responses
-});
+// POST route to submit anxiety response
+router.post('/anxiety', (req, res) => {
+    const { user_id, score, note } = req.body;
+    
+    // Perform a database query to insert the anxiety response
+    const queryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
+    const values = [user_id, 'anxiety', score, note, new Date()];
+    
+    pool
+      .query(queryText, values)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.error('Error submitting anxiety response:', error);
+        res.sendStatus(500);
+      });
+  });
 
 // GET route to fetch stress response
 router.get('/stress', (req, res) => {
@@ -81,9 +95,21 @@ router.get('/stress', (req, res) => {
       });
   });
 
-// Route for submitting stress questionnaire responses
-router.post('/stress/response', (req, res) => {
-  // Handle submitting stress questionnaire responses
+//Post route for stress
+router.post('/stress', (req, res) => {
+    const { user_id, score, note } = req.body;
+    // Perform a database query to insert the stress response
+    const queryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
+    const values = [user_id, 'stress', score, note, new Date()];
+    pool
+    .query(queryText, values)
+    .then(() => {
+        res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log('Error submitting stress response:', error);
+        res.sendStatus(500);
+    });
 });
 
 module.exports = router;
