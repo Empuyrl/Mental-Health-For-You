@@ -112,12 +112,6 @@ return (
         </label>
       </div>
       <div>
-        <label>
-          Additional notes:
-          <textarea value={note} onChange={(e) => setNote(e.target.value)} />
-        </label>
-      </div>
-      <div>
         <button type="submit">Submit</button>
       </div>
     </form>
