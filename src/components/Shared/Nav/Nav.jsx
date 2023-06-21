@@ -46,6 +46,9 @@ function Nav() {
             <Link className="navLink" to="/anxiety">
               Anxiety Page
             </Link>
+            <Link className="navLink" to="/results">
+              Results Page
+            </Link>
             <Link className="navLink" to="/resources">
               Resources
             </Link>
