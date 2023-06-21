@@ -6,6 +6,8 @@ import {
   anxietyResponseReducer,
   stressResponseReducer
 } from './results.reducer';
+import journalReducer from './journal.reducer';
+import resourcesReducer from './resources.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -17,7 +19,9 @@ const rootReducer = combineReducers({
   user,
   depressionResponse: depressionResponseReducer,
   anxietyResponse: anxietyResponseReducer,
-  stressResponse: stressResponseReducer
+  stressResponse: stressResponseReducer,
+  journal: journalReducer,
+  resources: resourcesReducer,
 });
 
 
