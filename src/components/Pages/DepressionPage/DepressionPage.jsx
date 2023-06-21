@@ -24,7 +24,7 @@ const handleSubmit = (event) => {
 
 return (
   <div>
-    <h1>Depression Questionnaire</h1>
+    <h1>Depression Questionnaire PHQ-9</h1>
     <form onSubmit={handleSubmit}>
       <div>
         <p>Over the last two weeks, how often have you been bothered by the following problems?</p>
