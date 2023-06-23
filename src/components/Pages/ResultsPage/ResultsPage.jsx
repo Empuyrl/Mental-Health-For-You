@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
+import JournalButton from '../../JournalModal/JournalButton';
 
 function Results() {
   const dispatch = useDispatch();
@@ -135,7 +136,7 @@ function Results() {
         <Bar data={stressChartData} options={chartOptions} />
       </div>
 
-      {/* Implement the journal modal for notes */}
+      <JournalButton />
       {/* You can use a modal library like react-modal or create a custom modal component */}
     </div>
   );

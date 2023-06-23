@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import JournalButton from '../../JournalModal/JournalButton';
 
 const DepressionPage = () => {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -295,6 +296,7 @@ const DepressionPage = () => {
           <button type="submit">Submit</button>
         </div>
       </form>
+      <JournalButton />
     </div>
   );
 };

@@ -50,13 +50,10 @@ function Nav() {
               Results Page
             </Link>
             <Link className="navLink" to="/resources">
-              Resources
+             Materials
             </Link>
-            <Link className="navLink" to="/journal">
-              Journal
-            </Link>
-            <Link className="navLink" to="/logs">
-              Logs
+            <Link className="navLink" to="/notebook">
+              NoteBook
             </Link>
             {/* Add more links here */}
             <LogOutButton className="navLink" />

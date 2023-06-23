@@ -1,6 +1,7 @@
 // ResourcesPage.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import JournalButton from '../../JournalModal/JournalButton';
 
 const ResourcesPage = () => {
   const dispatch = useDispatch();

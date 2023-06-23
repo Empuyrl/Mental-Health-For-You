@@ -16,6 +16,7 @@ import AnxietyPage from './Pages/AnxietyPage/AnxietyPage';
 import ResultsPage from './Pages/ResultsPage/ResultsPage';
 import ProfilePage from './Pages/Profile/Profile';
 import ResourcesPage from './Pages/ResourcesPage/ResourcesPage';
+import NotebookPage from './Pages/NotebookPage/NotebookPage';
 import './App.css';
 
 function App() {
@@ -109,6 +110,14 @@ function App() {
             path="/resources"
           >
             <ResourcesPage />
+          </Route>
+
+          <Route
+            // open to all users
+            exact
+            path="/notebook"
+          >
+            <NotebookPage />
           </Route>
 
           <Route

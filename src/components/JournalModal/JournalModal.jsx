@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const JournalModal = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [journalEntry, setJournalEntry] = useState('');
-  const [editMode, setEditMode] = useState(false);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -11,39 +12,11 @@ const JournalModal = () => {
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    setEditMode(false);
+    setJournalEntry(''); // Clear the text when modal closes
   };
 
   const handleSaveEntry = () => {
-    // Perform save logic for journal entry
-    console.log('Saving journal entry:', journalEntry);
-
-    // Clear the journal entry
-    setJournalEntry('');
-
-    // Close the modal
-    handleCloseModal();
-  };
-
-  const handleUpdateEntry = () => {
-    // Perform update logic for journal entry
-    console.log('Updating journal entry:', journalEntry);
-
-    // Clear the journal entry
-    setJournalEntry('');
-
-    // Close the modal
-    handleCloseModal();
-  };
-
-  const handleDeleteEntry = () => {
-    // Perform delete logic for journal entry
-    console.log('Deleting journal entry');
-
-    // Clear the journal entry
-    setJournalEntry('');
-
-    // Close the modal
+    dispatch({ type: 'ADD_JOURNAL_ENTRY', payload: { entry_text: journalEntry } }); // Change this to match your actual payload and action type
     handleCloseModal();
   };
 
@@ -52,19 +25,12 @@ const JournalModal = () => {
       <button onClick={handleOpenModal}>Open Journal</button>
       {isOpen && (
         <div>
-          <h3>{editMode ? 'Edit Entry' : 'New Entry'}</h3>
+          <h3>New Entry</h3>
           <textarea
             value={journalEntry}
             onChange={(e) => setJournalEntry(e.target.value)}
           ></textarea>
-          {editMode ? (
-            <>
-              <button onClick={handleUpdateEntry}>Update</button>
-              <button onClick={handleDeleteEntry}>Delete</button>
-            </>
-          ) : (
-            <button onClick={handleSaveEntry}>Save</button>
-          )}
+          <button onClick={handleSaveEntry}>Save</button>
           <button onClick={handleCloseModal}>Cancel</button>
         </div>
       )}
