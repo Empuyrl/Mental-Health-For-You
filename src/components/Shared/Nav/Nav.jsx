@@ -55,8 +55,8 @@ function Nav() {
             <Link className="navLink" to="/journal">
               Journal
             </Link>
-            <Link className="navLink" to="/notes">
-              Notes
+            <Link className="navLink" to="/logs">
+              Logs
             </Link>
             {/* Add more links here */}
             <LogOutButton className="navLink" />

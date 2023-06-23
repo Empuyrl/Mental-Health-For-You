@@ -24,5 +24,5 @@ const depressionResponseReducer = (state = {}, action) => {
         return state;
     }
   };
-  
-  export { depressionResponseReducer, anxietyResponseReducer, stressResponseReducer };
+
+  export { depressionResponseReducer, anxietyResponseReducer, stressResponseReducer }; 
