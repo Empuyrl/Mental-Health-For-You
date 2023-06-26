@@ -9,7 +9,7 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const mentalChallengesRouter = require('./routes/mentalchallenges.router');
+const resultsRouter = require('./routes/results.router');
 const journalRouter = require('./routes/journal.router');
 const resourceRouter = require('./routes/resources.router');
 
@@ -26,7 +26,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/api/mental-challenges', mentalChallengesRouter);
+app.use('/api/results', resultsRouter);
 app.use('/api/journal', journalRouter);
 app.use('/api/resources', resourceRouter);
 // Serve static files
