@@ -44,11 +44,19 @@ router.put('/entries/:id', (req, res) => {
     // Extract entry ID from the request parameters
     const entryId = req.params.id;
     // Extract updated entry text from the request body
-    const { entry_text } = req.body;
+    const { entry_text, category } = req.body;
+
+    console.log('entryId:', entryId);
+    console.log('entry_text:', entry_text);
+    console.log('category:', category);
+
+    if (!entryId || !entry_text || !category) {
+      return res.status(400).send('Invalid input');
+    }
   
     // Perform a database query to update the journal entry
-    const queryText = 'UPDATE entries SET entry_text = $1 WHERE id = $2';
-    const values = [entry_text, entryId];
+    const queryText = 'UPDATE entries SET entry_text = $1, category = $2 WHERE id = $3';
+    const values = [entry_text, category, entryId];
     pool
       .query(queryText, values)
       .then(() => {

@@ -1,41 +1,51 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const JournalModal = () => {
+const categories = ["Depression", "Stress", "Anxiety", "General"]; 
+
+const JournalModal = ({ currentEntry, setIsModalOpen }) => {
+
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  const [journalEntry, setJournalEntry] = useState('');
+  const [entryText, setEntryText] = useState(currentEntry ? currentEntry.entry_text : '');
+  const [category, setCategory] = useState(currentEntry ? currentEntry.category : categories[0]);
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
+ // Dispatch action to add or update the entry when form is submitted
+ const handleSubmit = (event) => {
+  event.preventDefault();
 
-  const handleCloseModal = () => {
-    setIsOpen(false);
-    setJournalEntry(''); // Clear the text when modal closes
-  };
+  console.log('entryText:', entryText);
+  console.log('category:', category);
 
-  const handleSaveEntry = () => {
-    dispatch({ type: 'ADD_JOURNAL_ENTRY', payload: { entry_text: journalEntry } }); // Change this to match your actual payload and action type
-    handleCloseModal();
-  };
+  if(currentEntry) {
+    dispatch({
+      type: 'UPDATE_JOURNAL_ENTRY',
+      payload: {
+        id: currentEntry.id,
+        entry_text: entryText,
+        category: category,
+      },
+    });
+  } else {
+    dispatch({
+      type: 'ADD_JOURNAL_ENTRY',
+      payload: { entry_text: entryText, category: category }
+    });
+  }
 
-  return (
-    <div>
-      <button onClick={handleOpenModal}>Open Journal</button>
-      {isOpen && (
-        <div>
-          <h3>New Entry</h3>
-          <textarea
-            value={journalEntry}
-            onChange={(e) => setJournalEntry(e.target.value)}
-          ></textarea>
-          <button onClick={handleSaveEntry}>Save</button>
-          <button onClick={handleCloseModal}>Cancel</button>
-        </div>
-      )}
-    </div>
-  );
+  // Close the modal after saving
+  setIsModalOpen(false);
 };
+
+return (
+  <form onSubmit={handleSubmit}>
+    <textarea value={entryText} onChange={(e) => setEntryText(e.target.value)} />
+    <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      {categories.map((category, index) => <option value={category} key={index}>{category}</option>)}
+    </select>
+    <button type="submit">Save</button>
+    <button type="button" onClick={() => setIsModalOpen(false)}>Cancel</button>
+  </form>
+);
+}
 
 export default JournalModal;

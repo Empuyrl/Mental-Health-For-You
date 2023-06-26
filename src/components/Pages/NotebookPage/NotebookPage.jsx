@@ -1,55 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import JournalModal from '../../JournalModal/JournalModal';
-import JournalButton from '../../JournalModal/JournalButton';
 
 const NotebookPage = () => {
   const dispatch = useDispatch();
-  const entries = useSelector((store) => store.journal) || [];
-  const userId = useSelector((store) => store.user.id);
-  const [selectedEntry, setSelectedEntry] = useState(null);
- 
+  const entries = useSelector(state => state.journal); // Get entries from Redux state
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentEntry, setCurrentEntry] = useState(null);
+
+  // Fetch entries on component mount
   useEffect(() => {
     dispatch({ type: 'FETCH_JOURNAL_ENTRIES' });
   }, [dispatch]);
 
-  const handleEntryClick = (entry) => {
-    setSelectedEntry(entry);
+  const handleEditClick = (entry) => {
+    setCurrentEntry(entry);
+    setIsModalOpen(true);
   };
 
-  const handleModalClose = () => {
-    setSelectedEntry(null);
+  const handleDeleteClick = (entry) => {
+    if (window.confirm('Are you sure you want to delete this entry?')) {
+      dispatch({
+        type: 'DELETE_JOURNAL_ENTRY',
+        payload: entry.id
+      });
+    }
   };
 
-  const handleUpdateEntry = (updatedEntry) => {
-    dispatch({ type: 'UPDATE_JOURNAL_ENTRY', payload: updatedEntry });
-  };
-
-  const handleDeleteEntry = (entryId) => {
-    dispatch({ type: 'DELETE_JOURNAL_ENTRY', payload: entryId });
-  };
+  // Group entries by category
+  const entriesByCategory = entries.reduce((acc, entry) => {
+    (acc[entry.category] = acc[entry.category] || []).push(entry);
+    return acc;
+  }, {});
 
   return (
     <div>
-      <h1>Notebook Page</h1>
-      {entries.map((entry) => (
-        <div key={entry.id} onClick={() => handleEntryClick(entry)}>
-          {entry.entry_text}
+      <button onClick={() => {setCurrentEntry(null); setIsModalOpen(true);}}>Open Journal</button>
+      {Object.entries(entriesByCategory).map(([category, entries]) => (
+        <div key={category}>
+          <h2>{category}</h2>
+          {entries.map((entry) => (
+            <div key={entry.id}>
+              <div onClick={() => handleEditClick(entry)}>
+                {entry.entry_text}
+              </div>
+              <button onClick={() => handleDeleteClick(entry)}>Delete</button>
+            </div>
+          ))}
         </div>
       ))}
-      {selectedEntry && (
-        <JournalModal
-          entry={selectedEntry}
-          onClose={handleModalClose}
-          onUpdate={handleUpdateEntry}
-          onDelete={handleDeleteEntry}
-          allowEdit={userId === selectedEntry.user_id}
-        />
-      )}
-        <JournalButton />
+      {isModalOpen && <JournalModal currentEntry={currentEntry} setIsModalOpen={setIsModalOpen} />}
     </div>
   );
-};
+  };
 
 export default NotebookPage;

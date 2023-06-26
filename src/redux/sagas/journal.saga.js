@@ -25,7 +25,7 @@ function* addJournalEntry(action) {
 // worker Saga: will be fired on "UPDATE_JOURNAL_ENTRY" action
 function* updateJournalEntry(action) {
     try {
-      yield axios.put(`/api/journal/entries/${action.payload.id}`, action.payload.data);
+      yield axios.put(`/api/journal/entries/${action.payload.id}`, action.payload);
       yield put({ type: 'FETCH_JOURNAL_ENTRIES' });
     } catch (error) {
       console.error('Error updating journal entry:', error);
