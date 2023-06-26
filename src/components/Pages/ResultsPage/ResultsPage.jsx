@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Bar } from 'react-chartjs-2';
 import JournalButton from '../../JournalModal/JournalButton';
 
 function Results() {
@@ -60,49 +59,6 @@ function Results() {
     }
   };
 
-  // Chart data and options for each questionnaire
-  const depressionChartData = {
-    labels: ['Depression'],
-    datasets: [
-      {
-        label: 'Depression Result',
-        data: [depressionResult],
-        backgroundColor: ['#FF6384'],
-      },
-    ],
-  };
-
-  const anxietyChartData = {
-    labels: ['Anxiety'],
-    datasets: [
-      {
-        label: 'Anxiety Result',
-        data: [anxietyResult],
-        backgroundColor: ['#36A2EB'],
-      },
-    ],
-  };
-
-  const stressChartData = {
-    labels: ['Stress'],
-    datasets: [
-      {
-        label: 'Stress Result',
-        data: [stressResult],
-        backgroundColor: ['#FFCE56'],
-      },
-    ],
-  };
-
-  const chartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 21,
-      },
-    },
-  };
-
   return (
     <div>
       <h2>Results</h2>
@@ -119,22 +75,6 @@ function Results() {
 
       {/* Link to the user's profile */}
       <Link to="/profile">View Profile</Link>
-
-      {/* Display the results graphs */}
-      <div>
-        <h3>Depression Result</h3>
-        <Bar data={depressionChartData} options={chartOptions} />
-      </div>
-
-      <div>
-        <h3>Anxiety Result</h3>
-        <Bar data={anxietyChartData} options={chartOptions} />
-      </div>
-
-      <div>
-        <h3>Stress Result</h3>
-        <Bar data={stressChartData} options={chartOptions} />
-      </div>
 
       <JournalButton />
       {/* You can use a modal library like react-modal or create a custom modal component */}

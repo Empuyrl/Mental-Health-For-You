@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, select } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "FETCH_RESOURCES" action
@@ -14,6 +14,11 @@ function* fetchResources() {
 // worker Saga: will be fired on "ADD_RESOURCE" action
 function* addResource(action) {
   try {
+    const user = yield select((state) => state.user);
+    if (!user.id) {
+      throw new Error('User not authenticated');
+    }
+
     yield axios.post('/api/resources', action.payload);
     yield put({ type: 'FETCH_RESOURCES' });
   } catch (error) {
@@ -24,6 +29,11 @@ function* addResource(action) {
 // worker Saga: will be fired on "DELETE_RESOURCE" action
 function* deleteResource(action) {
   try {
+    const user = yield select((state) => state.user);
+    if (!user.id) {
+      throw new Error('User not authenticated');
+    }
+
     yield axios.delete(`/api/resources/${action.payload}`);
     yield put({ type: 'FETCH_RESOURCES' });
   } catch (error) {
