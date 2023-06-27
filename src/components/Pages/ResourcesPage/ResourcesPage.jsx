@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import JournalButton from '../../JournalModal/JournalButton';
 
 const ResourcesPage = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const ResourcesPage = () => {
           </ul>
         </div>
       ))}
+       <JournalButton />
     </div>
   );
 };
