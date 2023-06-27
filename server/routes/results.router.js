@@ -22,6 +22,7 @@ router.get('/depression', (req, res) => {
  
 // POST route to submit depression response
 router.post('/depression', (req, res) => {
+  console.log(req.body);
     const { user_id, score, note } = req.body;
     
     // Perform a database query to insert the depression response
@@ -35,6 +36,7 @@ router.post('/depression', (req, res) => {
       })
       .catch((error) => {
         console.error('Error submitting depression response:', error);
+        console.error('Error details:', error.message, error.stack);
         res.sendStatus(500);
       });
   });

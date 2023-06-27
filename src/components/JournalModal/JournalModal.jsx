@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 const categories = ["Depression", "Stress", "Anxiety", "General"]; 
 
 const JournalModal = ({ currentEntry, setIsModalOpen }) => {
+  console.log(setIsModalOpen);
 
   const dispatch = useDispatch();
   const [entryText, setEntryText] = useState(currentEntry ? currentEntry.entry_text : '');

@@ -16,7 +16,7 @@ const JournalButton = () => {
   return (
     <div>
       {isModalOpen ? (
-        <JournalModal onClose={handleCloseModal} />
+        <JournalModal onClose={handleCloseModal} setIsModalOpen={setIsModalOpen} />
       ) : (
         <button onClick={handleOpenModal}>Open Journal</button>
       )}
