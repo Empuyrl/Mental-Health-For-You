@@ -43,7 +43,7 @@ const DepressionPage = () => {
     } else {
       scoreMessage = 'Invalid Result';
     }
-
+  
     setScoreMessage(scoreMessage);
     const payload = {
       user_id: user.id,

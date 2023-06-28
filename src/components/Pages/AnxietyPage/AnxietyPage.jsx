@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 
 function AnxietyPage() {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [scoreMessage, setScoreMessage] = useState('');
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const history = useHistory();
 
   const handleAnswerChange = (index, value) => {
     const updatedAnswers = [...answers];
@@ -16,11 +19,29 @@ function AnxietyPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const score = answers.reduce((total, answer) => total + answer, 0);
+    console.log(`Total score: ${score}`);
+    // Calculate the score message based on the score
+    let scoreMessage;
+    if (score >= 0 && score <= 4) {
+      scoreMessage = 'Minimal anxiety';
+    } else if (score >= 5 && score <= 9) {
+      scoreMessage = 'Mild anxiety';
+    } else if (score >= 10 && score <= 14) {
+      scoreMessage = 'Moderate anxiety';
+    } else if (score >= 15 && score <= 21) {
+      scoreMessage = 'Severe anxiety';
+    } else {
+      scoreMessage = 'Invalid Result';
+    }
+  
+    setScoreMessage(scoreMessage);
     const payload = {
       user_id: user.id,
       score,
     };
+    console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
     dispatch({ type: 'SUBMIT_ANXIETY_RESPONSE', payload });
+    history.push('/results');
   };
 
   return (
@@ -34,24 +55,28 @@ function AnxietyPage() {
             Feeling nervous, anxious, or on edge:
             <div>
               <button
+                type="button"
                 className={answers[0] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[0] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[0] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[0] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 3)}
               >
@@ -63,24 +88,28 @@ function AnxietyPage() {
             Not being able to stop or control worrying:
             <div>
               <button
+                type="button"
                 className={answers[1] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[1] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[1] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[1] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 3)}
               >
@@ -92,24 +121,28 @@ function AnxietyPage() {
             Worrying too much about different things:
             <div>
               <button
+                type="button"
                 className={answers[2] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[2] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[2] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[2] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 3)}
               >
@@ -121,24 +154,28 @@ function AnxietyPage() {
             Trouble relaxing:
             <div>
               <button
+                type="button"
                 className={answers[3] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[3] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[3] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[3] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 3)}
               >
@@ -150,24 +187,28 @@ function AnxietyPage() {
             Being so restless that it is hard to sit still:
             <div>
               <button
+                type="button"
                 className={answers[4] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[4] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[4] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[4] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 3)}
               >
@@ -179,24 +220,28 @@ function AnxietyPage() {
             Becoming easily annoyed or irritable:
             <div>
               <button
+                type="button"
                 className={answers[5] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[5] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[5] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[5] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 3)}
               >
@@ -208,24 +253,28 @@ function AnxietyPage() {
             Feeling afraid, as if something awful might happen:
             <div>
               <button
+                type="button"
                 className={answers[6] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[6] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[6] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[6] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 3)}
               >

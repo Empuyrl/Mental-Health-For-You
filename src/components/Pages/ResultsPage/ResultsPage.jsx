@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 
 function Results() {
-  const [depressionScore, setDepressionScore] = useState(null);
-  const [anxietyScore, setAnxietyScore] = useState(null);
+  const depressionScore = useSelector((state) => state.depressionScore);
+  const depressionSeverity = useSelector((state) => state.depressionSeverity);
+  const anxietyScore = useSelector((state) => state.anxietyScore);
+  const anxietySeverity = useSelector((state) => state.anxietySeverity)
   const stressScore = useSelector((state) => state.stressScore);
   const stressSeverity = useSelector((state) => state.stressSeverity);
   const dispatch = useDispatch();
@@ -13,6 +15,8 @@ function Results() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_STRESS_SCORE' });
+    dispatch({ type: 'FETCH_DEPRESSION_SCORE' });
+    dispatch({ type: 'FETCH_ANXIETY_SCORE' });
   }, [dispatch]);
 
   const fetchScores = () => {
@@ -94,7 +98,7 @@ function Results() {
       {depressionScore !== null ? (
         <div>
           <h3>Depression Score: {depressionScore}</h3>
-          <h4>Severity Level: {calculateSeverityLevel(depressionScore, 'depression')}</h4>
+          <h4>Severity Level: {depressionSeverity}</h4>
         </div>
       ) : (
         <p>Loading depression score...</p>
@@ -104,7 +108,7 @@ function Results() {
       {anxietyScore !== null ? (
         <div>
           <h3>Anxiety Score: {anxietyScore}</h3>
-          <h4>Severity Level: {calculateSeverityLevel(anxietyScore, 'anxiety')}</h4>
+          <h4>Severity Level: {anxietySeverity}</h4>
         </div>
       ) : (
         <p>Loading anxiety score...</p>
