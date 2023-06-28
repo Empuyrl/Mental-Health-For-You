@@ -5,17 +5,18 @@ import JournalButton from '../../JournalModal/JournalButton';
 
 const DepressionPage = () => {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [scoreMessage, setScoreMessage] = useState('');
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const history = useHistory();
 
   // This is where you select the depression data from your store.
-  const depressionResults = useSelector((store) => store.depressionResponse);
+  // const depressionResults = useSelector((store) => store.depressionResponse);
 
   // This useEffect will dispatch the fetch action when the component mounts.
-  useEffect(() => {
-    dispatch({ type: 'FETCH_DEPRESSION_RESPONSE' });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch({ type: 'FETCH_DEPRESSION_RESPONSE' });
+  // }, [dispatch]);
 
   const handleAnswerChange = (index, value) => {
     const updatedAnswers = [...answers];
@@ -26,10 +27,29 @@ const DepressionPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const score = answers.reduce((total, answer) => total + answer, 0);
+    console.log(`Total score: ${score}`);
+    // Calculate the score message based on the score
+    let scoreMessage;
+    if (score >= 0 && score <= 4) {
+      scoreMessage = 'Minimal depression';
+    } else if (score >= 5 && score <= 9) {
+      scoreMessage = 'Mild depression';
+    } else if (score >= 10 && score <= 14) {
+      scoreMessage = 'Moderate depression';
+    } else if (score >= 15 && score <= 19) {
+      scoreMessage = 'Moderately severe depression';
+    } else if (score >= 20 && score <= 27) {
+      scoreMessage = 'Severe depression';
+    } else {
+      scoreMessage = 'Invalid Result';
+    }
+
+    setScoreMessage(scoreMessage);
     const payload = {
       user_id: user.id,
       score,
     };
+    console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
     dispatch({ type: 'SUBMIT_DEPRESSION_RESPONSE', payload });
     history.push('/results');
   };
@@ -45,24 +65,28 @@ const DepressionPage = () => {
             Little interest or pleasure in doing things:
             <div>
               <button
+                type="button"
                 className={answers[0] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[0] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[0] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[0] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(0, 3)}
               >
@@ -74,24 +98,28 @@ const DepressionPage = () => {
             Feeling down, depressed, or hopeless:
             <div>
               <button
+                type="button"
                 className={answers[1] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[1] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[1] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[1] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(1, 3)}
               >
@@ -103,24 +131,28 @@ const DepressionPage = () => {
             Trouble sleeping or sleeping too much:
             <div>
               <button
+                type="button"
                 className={answers[2] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[2] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[2] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[2] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(2, 3)}
               >
@@ -132,24 +164,28 @@ const DepressionPage = () => {
             Feeling tired or having little energy:
             <div>
               <button
+                type="button"
                 className={answers[3] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[3] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[3] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[3] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(3, 3)}
               >
@@ -161,24 +197,28 @@ const DepressionPage = () => {
             Poor appetite or overeating:
             <div>
               <button
+                type="button"
                 className={answers[4] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[4] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[4] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[4] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(4, 3)}
               >
@@ -190,24 +230,28 @@ const DepressionPage = () => {
             Feeling bad about yourself - or that you are a failure or have let yourself or your family down:
             <div>
               <button
+                type="button"
                 className={answers[5] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[5] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[5] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[5] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(5, 3)}
               >
@@ -219,24 +263,28 @@ const DepressionPage = () => {
             Trouble concentrating on things, such as reading the newspaper or watching television:
             <div>
               <button
+                type="button"
                 className={answers[6] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[6] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[6] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[6] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(6, 3)}
               >
@@ -248,24 +296,28 @@ const DepressionPage = () => {
             Moving or speaking so slowly that other people could have noticed?
             <div>
               <button
+                type="button"
                 className={answers[7] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(7, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[7] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(7, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[7] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(7, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[7] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(7, 3)}
               >
@@ -277,24 +329,28 @@ const DepressionPage = () => {
             Thoughts that you would be better off dead or of hurting yourself in some way:
             <div>
               <button
+                type="button"
                 className={answers[8] === 0 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(8, 0)}
               >
                 0 - Not at all
               </button>
               <button
+                type="button"
                 className={answers[8] === 1 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(8, 1)}
               >
                 1 - Several days
               </button>
               <button
+                type="button"
                 className={answers[8] === 2 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(8, 2)}
               >
                 2 - More than half the days
               </button>
               <button
+                type="button"
                 className={answers[8] === 3 ? 'selected' : ''}
                 onClick={() => handleAnswerChange(8, 3)}
               >

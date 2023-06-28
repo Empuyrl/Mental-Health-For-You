@@ -20,6 +20,29 @@ function* submitDepressionResponse(action) {
 
     // Dispatch an action to fetch the updated depression response after submitting
     yield put({ type: 'FETCH_DEPRESSION_RESPONSE' });
+
+    // Calculate the score based on the provided score value
+    const answers = action.payload.answers;
+    const score = answers.reduce((a, b) => a + b, 0);
+    console.log(`Total score: ${score}`);
+
+    // Dispatch an action to calculate the score message based on the score
+    let scoreMessage;
+    if (score < 10) {
+      scoreMessage = "Minimal Depression";
+    } else if (score < 15) {
+      scoreMessage = "Mild Depression";
+    } else if (score < 20) {
+      scoreMessage = "Moderate Depression";
+    } else if (score < 25) {
+      scoreMessage = "Moderately Severe Depression";
+    } else {
+      scoreMessage = "Severe Depression";
+    }
+
+    // Dispatch an action to store the score and severity message in the Redux store
+    yield put({ type: 'SET_DEPRESSION_SCORE', payload: score });
+    yield put({ type: 'SET_DEPRESSION_SEVERITY', payload: scoreMessage });
   } catch (error) {
     console.log('Error submitting depression response:', error);
   }
@@ -80,17 +103,40 @@ function* fetchAnxietyResponse() {
     }
   }
   
-  // worker Saga: will be fired on "SUBMIT_ANXIETY_RESPONSE" actions
-  function* submitAnxietyResponse(action) {
-    try {
-      yield axios.post('/api/results/anxiety', action.payload);
-  
-      // Dispatch an action to fetch the updated anxiety response after submitting
-      yield put({ type: 'FETCH_ANXIETY_RESPONSE' });
-    } catch (error) {
-      console.log('Error submitting anxiety response:', error);
+ // worker Saga: will be fired on "SUBMIT_ANXIETY_RESPONSE" actions
+function* submitAnxietyResponse(action) {
+  try {
+    yield axios.post('/api/results/anxiety', action.payload);
+
+    // Dispatch an action to fetch the updated anxiety response after submitting
+    yield put({ type: 'FETCH_ANXIETY_RESPONSE' });
+
+    // Calculate the score based on the provided score value
+    const answers = action.payload.answers;
+    const score = answers.reduce((a, b) => a + b, 0);
+    console.log(`Total score: ${score}`);
+
+    // Dispatch an action to calculate the score message based on the score
+    let scoreMessage;
+    if (score < 5) {
+      scoreMessage = "Minimal Anxiety";
+    } else if (score < 10) {
+      scoreMessage = "Mild Anxiety";
+    } else if (score < 15) {
+      scoreMessage = "Moderate Anxiety";
+    } else if (score < 20) {
+      scoreMessage = "Moderately Severe Anxiety";
+    } else {
+      scoreMessage = "Severe Anxiety";
     }
+
+    // Dispatch an action to store the score and severity message in the Redux store
+    yield put({ type: 'SET_ANXIETY_SCORE', payload: score });
+    yield put({ type: 'SET_ANXIETY_SEVERITY', payload: scoreMessage });
+  } catch (error) {
+    console.log('Error submitting anxiety response:', error);
   }
+}
 
   function* fetchDepressionScore() {
     try {
