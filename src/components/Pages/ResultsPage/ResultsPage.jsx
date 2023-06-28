@@ -1,25 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 
 function Results() {
+  const [depressionScore, setDepressionScore] = useState(null);
+  const [anxietyScore, setAnxietyScore] = useState(null);
+  const stressScore = useSelector((state) => state.stressScore);
+  const stressSeverity = useSelector((state) => state.stressSeverity);
   const dispatch = useDispatch();
 
-  // Retrieve the test results from the Redux store
-  const depressionResult = useSelector((state) => state.depressionResult);
-  const anxietyResult = useSelector((state) => state.anxietyResult);
-  const stressResult = useSelector((state) => state.stressResult);
 
   useEffect(() => {
-    // Fetch the test results from the server upon component mount
-    dispatch({ type: 'FETCH_DEPRESSION_RESPONSE' });
-    dispatch({ type: 'FETCH_ANXIETY_RESPONSE' });
-    dispatch({ type: 'FETCH_STRESS_RESPONSE' });
+    dispatch({ type: 'FETCH_STRESS_SCORE' });
   }, [dispatch]);
 
-  // Calculate the severity level based on the result range
+  const fetchScores = () => {
+    // Fetch the scores from the server
+    fetch('/api/results/depression')
+      .then((response) => response.text())
+      .then((data) => {
+        setDepressionScore(data.score);
+      })
+      .catch((error) => {
+        console.error('Error fetching depression score:', error);
+      });
+
+    fetch('/api/results/anxiety')
+      .then((response) => response.text())
+      .then((data) => {
+        setAnxietyScore(data.score);
+      })
+      .catch((error) => {
+        console.error('Error fetching anxiety score:', error);
+      });
+
+    fetch('/api/results/stress')
+      .then((response) => response.json())
+      .then((data) => {
+        setStressScore(data.score);
+      })
+      .catch((error) => {
+        console.error('Error fetching stress score:', error);
+      });
+  };
+
   const calculateSeverityLevel = (result, type) => {
+    // Calculate the severity level based on the result range
     if (type === 'depression') {
       if (result >= 1 && result <= 4) {
         return 'Minimal depression';
@@ -63,21 +90,41 @@ function Results() {
     <div>
       <h2>Results</h2>
 
-      {/* Display the test results */}
-      <h3>Depression Result: {depressionResult}</h3>
-      <h4>Severity Level: {calculateSeverityLevel(depressionResult, 'depression')}</h4>
+      {/* Display the depression score and severity level */}
+      {depressionScore !== null ? (
+        <div>
+          <h3>Depression Score: {depressionScore}</h3>
+          <h4>Severity Level: {calculateSeverityLevel(depressionScore, 'depression')}</h4>
+        </div>
+      ) : (
+        <p>Loading depression score...</p>
+      )}
 
-      <h3>Anxiety Result: {anxietyResult}</h3>
-      <h4>Severity Level: {calculateSeverityLevel(anxietyResult, 'anxiety')}</h4>
+      {/* Display the anxiety score and severity level */}
+      {anxietyScore !== null ? (
+        <div>
+          <h3>Anxiety Score: {anxietyScore}</h3>
+          <h4>Severity Level: {calculateSeverityLevel(anxietyScore, 'anxiety')}</h4>
+        </div>
+      ) : (
+        <p>Loading anxiety score...</p>
+      )}
 
-      <h3>Stress Result: {stressResult}</h3>
-      <h4>Severity Level: {calculateSeverityLevel(stressResult, 'stress')}</h4>
+      {/* Display the stress score and severity level */}
+      {stressScore !== null ? (
+        <div>
+          <h3>Stress Score: {stressScore}</h3>
+          <h4>Severity Level: {stressSeverity}</h4>
+        </div>
+      ) : (
+        <p>Loading stress score...</p>
+      )}
 
       {/* Link to the user's profile */}
       <Link to="/profile">View Profile</Link>
 
+      {/* Render the JournalButton component */}
       <JournalButton />
-      {/* You can use a modal library like react-modal or create a custom modal component */}
     </div>
   );
 }

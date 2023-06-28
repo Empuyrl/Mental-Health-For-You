@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, all } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "FETCH_DEPRESSION_RESPONSE" actions
@@ -44,6 +44,25 @@ function* fetchStressResponse() {
   
       // Dispatch an action to fetch the updated stress response after submitting
       yield put({ type: 'FETCH_STRESS_RESPONSE' });
+
+       // Calculate the score based on the provided score value
+       const answers = action.payload.answers;
+       const score = answers.reduce((a, b) => a + b, 0);
+    console.log(`Total score: ${score}`);
+  
+      // Dispatch an action to calculate the score message based on the score
+      let scoreMessage;
+      if (action.payload.score < 14) {
+        scoreMessage = "Low Stress";
+      } else if (action.payload.score < 27) {
+        scoreMessage = "Moderate Stress";
+      } else {
+        scoreMessage = "High Stress";
+      }
+  
+      // Dispatch an action to store the score and severity message in the Redux store
+      yield put({ type: 'SET_STRESS_SCORE', payload: score });
+      yield put({ type: 'SET_STRESS_SEVERITY', payload: scoreMessage });
     } catch (error) {
       console.log('Error submitting stress response:', error);
     }
@@ -73,14 +92,46 @@ function* fetchAnxietyResponse() {
     }
   }
 
+  function* fetchDepressionScore() {
+    try {
+      const response = yield axios.get('/api/results/depression');
+      yield put({ type: 'SET_DEPRESSION_SCORE', payload: response.data.score });
+    } catch (error) {
+      console.error('Error fetching depression score:', error);
+    }
+  }
+  
+  function* fetchAnxietyScore() {
+    try {
+      const response = yield axios.get('/api/results/anxiety');
+      yield put({ type: 'SET_ANXIETY_SCORE', payload: response.data.score });
+    } catch (error) {
+      console.error('Error fetching anxiety score:', error);
+    }
+  }
+  
+  function* fetchStressScore() {
+    try {
+      const response = yield axios.get('/api/results/stress');
+      yield put({ type: 'SET_STRESS_SCORE', payload: response.data.score });
+    } catch (error) {
+      console.error('Error fetching stress score:', error);
+    }
+  }
+
   // Watcher Saga: listens for dispatched actions and calls the corresponding worker saga
-function* resultsSaga() {
-    yield takeLatest('FETCH_DEPRESSION_RESPONSE', fetchDepressionResponse);
-    yield takeLatest('SUBMIT_DEPRESSION_RESPONSE', submitDepressionResponse);
-    yield takeLatest('FETCH_ANXIETY_RESPONSE', fetchAnxietyResponse);
-    yield takeLatest('SUBMIT_ANXIETY_RESPONSE', submitAnxietyResponse);
-    yield takeLatest('FETCH_STRESS_RESPONSE', fetchStressResponse);
-    yield takeLatest('SUBMIT_STRESS_RESPONSE', submitStressResponse);
+  function* resultsSaga() {
+    yield all([
+      takeLatest('FETCH_DEPRESSION_RESPONSE', fetchDepressionResponse),
+      takeLatest('SUBMIT_DEPRESSION_RESPONSE', submitDepressionResponse),
+      takeLatest('FETCH_ANXIETY_RESPONSE', fetchAnxietyResponse),
+      takeLatest('SUBMIT_ANXIETY_RESPONSE', submitAnxietyResponse),
+      takeLatest('FETCH_STRESS_RESPONSE', fetchStressResponse),
+      takeLatest('SUBMIT_STRESS_RESPONSE', submitStressResponse),
+      takeLatest('FETCH_DEPRESSION_SCORE', fetchDepressionScore),
+      takeLatest('FETCH_ANXIETY_SCORE', fetchAnxietyScore),
+      takeLatest('FETCH_STRESS_SCORE', fetchStressScore),
+    ]);
   }
   
   export default resultsSaga;

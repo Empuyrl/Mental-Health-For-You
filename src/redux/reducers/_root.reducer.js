@@ -3,8 +3,14 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import {
   depressionResponseReducer,
+  depressionScoreReducer,
+  depressionSeverityReducer,
   anxietyResponseReducer,
-  stressResponseReducer
+  anxietyScoreReducer,
+  anxietySeverityReducer,
+  stressResponseReducer,
+  stressScoreReducer,
+  stressSeverityReducer
 } from './results.reducer';
 import journalReducer from './journal.reducer';
 import resourcesReducer from './resources.reducer';
@@ -18,8 +24,14 @@ const rootReducer = combineReducers({
   errors,
   user,
   depressionResponse: depressionResponseReducer,
+  depressionScore: depressionScoreReducer,
+  depressionSeverity: depressionSeverityReducer,
   anxietyResponse: anxietyResponseReducer,
+  anxietyScore: anxietyScoreReducer,
+  anxietySeverity: anxietySeverityReducer,
   stressResponse: stressResponseReducer,
+  stressScore: stressScoreReducer,
+  stressSeverity: stressSeverityReducer,
   journal: journalReducer,
   resources: resourcesReducer,
 });

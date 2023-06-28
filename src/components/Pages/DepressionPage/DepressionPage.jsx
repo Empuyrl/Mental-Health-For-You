@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 
 const DepressionPage = () => {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const history = useHistory();
+
+  // This is where you select the depression data from your store.
+  const depressionResults = useSelector((store) => store.depressionResponse);
+
+  // This useEffect will dispatch the fetch action when the component mounts.
+  useEffect(() => {
+    dispatch({ type: 'FETCH_DEPRESSION_RESPONSE' });
+  }, [dispatch]);
 
   const handleAnswerChange = (index, value) => {
     const updatedAnswers = [...answers];
@@ -21,6 +31,7 @@ const DepressionPage = () => {
       score,
     };
     dispatch({ type: 'SUBMIT_DEPRESSION_RESPONSE', payload });
+    history.push('/results');
   };
 
   return (
@@ -297,6 +308,9 @@ const DepressionPage = () => {
         </div>
       </form>
       <JournalButton />
+      <div>
+        {/* Make sure to handle the case where depressionResults is undefined */}
+      </div>
     </div>
   );
 };
