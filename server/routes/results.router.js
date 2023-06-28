@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 // GET route to fetch depression response
 router.get('/depression', (req, res) => {
     // Perform a database query to retrieve the depression response
-    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1';
+    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1 ORDER BY createdate DESC LIMIT 1';
     const values = ['depression'];
     
     pool
@@ -45,7 +45,7 @@ router.post('/depression', (req, res) => {
 // GET route to fetch anxiety response
 router.get('/anxiety', (req, res) => {
     // Perform a database query to retrieve the anxiety response
-    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1';
+    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1 ORDER BY createdate DESC LIMIT 1';
     const values = ['anxiety'];
     
     pool
@@ -82,7 +82,7 @@ router.post('/anxiety', (req, res) => {
 // GET route to fetch stress response
 router.get('/stress', (req, res) => {
     // Perform a database query to retrieve the stress response
-    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1';
+    const queryText = 'SELECT * FROM "response" WHERE questionnaire_type = $1 ORDER BY createdate DESC LIMIT 1';
     const values = ['stress'];
     
     pool

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
+import allFunctions from '../../helper/helper.jsx'
 
 function AnxietyPage() {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -10,16 +11,39 @@ function AnxietyPage() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
 
+   let old_Value1 = 1;
+    let old_Value2 = 2;
+    let old_Value3 = 3;
+    let old_Value4 = 4;
+    let old_Value5 = 5;
+    let old_Value6 = 6;
+    let old_Value7 = 7; 
+
+  let value1 = Number(old_Value1);
+    let value2 = Number(old_Value2);
+    let value3 = Number(old_Value3);
+    let value4 = Number(old_Value4);
+    let value5 = Number(old_Value5);
+    let value6 = Number(old_Value6);
+    let value7 = Number(old_Value7);
+  
+  
+  
+  const valueArray = [value1, value2, value3, value4, value5, value6, value7];
+ 
+
+
   const handleAnswerChange = (index, value) => {
     const updatedAnswers = [...answers];
-    updatedAnswers[index] = value;
+    updatedAnswers[index] = parseInt(value);
     setAnswers(updatedAnswers);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const score = answers.reduce((total, answer) => total + answer, 0);
-    console.log(`Total score: ${score}`);
+    console.log(`Calculated score: ${score}`);
+console.log(`Calculated score message: ${scoreMessage}`);
     // Calculate the score message based on the score
     let scoreMessage;
     if (score >= 0 && score <= 4) {
@@ -33,11 +57,11 @@ function AnxietyPage() {
     } else {
       scoreMessage = 'Invalid Result';
     }
-  
+    const sum = allFunctions.addScore(answers);
     setScoreMessage(scoreMessage);
     const payload = {
       user_id: user.id,
-      score,
+      score: sum,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
     dispatch({ type: 'SUBMIT_ANXIETY_RESPONSE', payload });

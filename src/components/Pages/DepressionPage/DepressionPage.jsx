@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
+import allFunctions from '../../helper/helper.jsx'
 
 const DepressionPage = () => {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -10,24 +11,45 @@ const DepressionPage = () => {
   const user = useSelector((store) => store.user);
   const history = useHistory();
 
-  // This is where you select the depression data from your store.
-  // const depressionResults = useSelector((store) => store.depressionResponse);
 
-  // This useEffect will dispatch the fetch action when the component mounts.
-  // useEffect(() => {
-  //   dispatch({ type: 'FETCH_DEPRESSION_RESPONSE' });
-  // }, [dispatch]);
+    let old_Value1 = 1;
+    let old_Value2 = 2;
+    let old_Value3 = 3;
+    let old_Value4 = 4;
+    let old_Value5 = 5;
+    let old_Value6 = 6;
+    let old_Value7 = 7;
+    let old_Value8 = 8;
+    let old_Value9 = 9;
+   
+    let value1 = Number(old_Value1);
+    let value2 = Number(old_Value2);
+    let value3 = Number(old_Value3);
+    let value4 = Number(old_Value4);
+    let value5 = Number(old_Value5);
+    let value6 = Number(old_Value6);
+    let value7 = Number(old_Value7);
+    let value8 = Number(old_Value8);
+    let value9 = Number(old_Value9);
+    //  LOG  [1, 2, 3, 4]
+    const valueArray = [value1, value2, value3, value4, value5, value6, value7, value8, value9];
+    // allFunctions.addScore(valueArray);
+
 
   const handleAnswerChange = (index, value) => {
+    console.log(`handleAnswerChange called with index: ${index} and value: ${value}`);
     const updatedAnswers = [...answers];
-    updatedAnswers[index] = value;
+    //problem seems to be the math isn't actually being added
+    console.log(updatedAnswers); 
+    updatedAnswers[index] = parseInt(value);
     setAnswers(updatedAnswers);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const score = answers.reduce((total, answer) => total + answer, 0);
-    console.log(`Total score: ${score}`);
+    console.log(`Calculated score: ${score}`);
+    console.log(`Calculated score message: ${scoreMessage}`);
     // Calculate the score message based on the score
     let scoreMessage;
     if (score >= 0 && score <= 4) {
@@ -43,14 +65,16 @@ const DepressionPage = () => {
     } else {
       scoreMessage = 'Invalid Result';
     }
-  
+    const sum = allFunctions.addScore(answers);
     setScoreMessage(scoreMessage);
     const payload = {
       user_id: user.id,
-      score,
+      score: sum,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
+
     dispatch({ type: 'SUBMIT_DEPRESSION_RESPONSE', payload });
+    
     history.push('/results');
   };
 
@@ -360,6 +384,7 @@ const DepressionPage = () => {
           </label>
         </div>
         <div>
+          <p>{scoreMessage}</p>
           <button type="submit">Submit</button>
         </div>
       </form>

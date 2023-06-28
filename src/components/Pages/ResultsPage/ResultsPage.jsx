@@ -5,11 +5,11 @@ import JournalButton from '../../JournalModal/JournalButton';
 
 function Results() {
   const depressionScore = useSelector((state) => state.depressionScore);
-  const depressionSeverity = useSelector((state) => state.depressionSeverity);
+  const [depressionSeverity, setDepresionSeverity] = useState('');
   const anxietyScore = useSelector((state) => state.anxietyScore);
-  const anxietySeverity = useSelector((state) => state.anxietySeverity)
+  const [anxietySeverity, setAnxietySeverity] = useState('');
   const stressScore = useSelector((state) => state.stressScore);
-  const stressSeverity = useSelector((state) => state.stressSeverity);
+  const [stressSeverity, setStressSeverity] = useState('');
   const dispatch = useDispatch();
 
 
@@ -17,37 +17,10 @@ function Results() {
     dispatch({ type: 'FETCH_STRESS_SCORE' });
     dispatch({ type: 'FETCH_DEPRESSION_SCORE' });
     dispatch({ type: 'FETCH_ANXIETY_SCORE' });
-  }, [dispatch]);
-
-  const fetchScores = () => {
-    // Fetch the scores from the server
-    fetch('/api/results/depression')
-      .then((response) => response.text())
-      .then((data) => {
-        setDepressionScore(data.score);
-      })
-      .catch((error) => {
-        console.error('Error fetching depression score:', error);
-      });
-
-    fetch('/api/results/anxiety')
-      .then((response) => response.text())
-      .then((data) => {
-        setAnxietyScore(data.score);
-      })
-      .catch((error) => {
-        console.error('Error fetching anxiety score:', error);
-      });
-
-    fetch('/api/results/stress')
-      .then((response) => response.json())
-      .then((data) => {
-        setStressScore(data.score);
-      })
-      .catch((error) => {
-        console.error('Error fetching stress score:', error);
-      });
-  };
+    setDepresionSeverity(calculateSeverityLevel(depressionScore, 'depression'));
+    setAnxietySeverity(calculateSeverityLevel(anxietyScore, 'anxiety'));
+    setStressSeverity(calculateSeverityLevel(stressScore, 'stress'));
+  }, []);
 
   const calculateSeverityLevel = (result, type) => {
     // Calculate the severity level based on the result range

@@ -22,10 +22,8 @@ CREATE TABLE "response" (
   "user_id" INTEGER REFERENCES "user",
   "questionnaire_type" VARCHAR(80) NOT NULL,
   "score" INTEGER NOT NULL,
-  "note" TEXT,
   "createdate" DATE NOT NULL
 );
-
 CREATE TABLE "resources" (
   "id" SERIAL PRIMARY KEY,
   "resource_type" VARCHAR(80) NOT NULL,

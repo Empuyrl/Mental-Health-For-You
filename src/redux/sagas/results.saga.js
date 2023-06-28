@@ -16,37 +16,38 @@ function* fetchDepressionResponse() {
 // worker Saga: will be fired on "SUBMIT_DEPRESSION_RESPONSE" actions
 function* submitDepressionResponse(action) {
   try {
-    yield axios.post('/api/results/depression', action.payload);
+    // Submit the responses to the server and get the calculated score back
+    const response = yield axios.post('/api/results/depression', action.payload);
+    console.log(response.data);
 
-    // Dispatch an action to fetch the updated depression response after submitting
-    yield put({ type: 'FETCH_DEPRESSION_RESPONSE' });
+    // Log the server response
+    console.log('Server response:', response.data);
 
-    // Calculate the score based on the provided score value
-    const answers = action.payload.answers;
-    const score = answers.reduce((a, b) => a + b, 0);
-    console.log(`Total score: ${score}`);
-
-    // Dispatch an action to calculate the score message based on the score
-    let scoreMessage;
-    if (score < 10) {
-      scoreMessage = "Minimal Depression";
-    } else if (score < 15) {
-      scoreMessage = "Mild Depression";
-    } else if (score < 20) {
-      scoreMessage = "Moderate Depression";
-    } else if (score < 25) {
-      scoreMessage = "Moderately Severe Depression";
-    } else {
-      scoreMessage = "Severe Depression";
+    // The server should return the calculated score
+    const score = response.data.score;
+    if (typeof score !== 'number') {
+      throw new Error('Score received from the server is not a number');
     }
 
-    // Dispatch an action to store the score and severity message in the Redux store
+    // Log the calculated score
+    console.log(`Total score: ${score}`);
+
+    // Dispatch an action to store the calculated score in the Redux store
     yield put({ type: 'SET_DEPRESSION_SCORE', payload: score });
-    yield put({ type: 'SET_DEPRESSION_SEVERITY', payload: scoreMessage });
-  } catch (error) {
-    console.log('Error submitting depression response:', error);
-  }
-}
+
+    // Calculate the score based on the provided score value
+    // const answers = action.payload.answers;
+    // const score = answers.reduce((a, b) => a + b, 0);
+
+    // Dispatch an action to store the score and severity message in the Redux store
+       // Dispatch an action to store the severity message in the Redux store
+       yield put({ type: 'SET_DEPRESSION_SEVERITY', payload: scoreMessage });
+
+      } catch (error) {
+        console.log('Error submitting depression response:', error);
+      }
+    }
+
 
 // worker Saga: will be fired on "FETCH_STRESS_RESPONSE" actions
 function* fetchStressResponse() {
@@ -64,7 +65,7 @@ function* fetchStressResponse() {
   function* submitStressResponse(action) {
     try {
       yield axios.post('/api/results/stress', action.payload);
-  
+  console.log(action.payload);
       // Dispatch an action to fetch the updated stress response after submitting
       yield put({ type: 'FETCH_STRESS_RESPONSE' });
 
@@ -72,16 +73,6 @@ function* fetchStressResponse() {
        const answers = action.payload.answers;
        const score = answers.reduce((a, b) => a + b, 0);
     console.log(`Total score: ${score}`);
-  
-      // Dispatch an action to calculate the score message based on the score
-      let scoreMessage;
-      if (action.payload.score < 14) {
-        scoreMessage = "Low Stress";
-      } else if (action.payload.score < 27) {
-        scoreMessage = "Moderate Stress";
-      } else {
-        scoreMessage = "High Stress";
-      }
   
       // Dispatch an action to store the score and severity message in the Redux store
       yield put({ type: 'SET_STRESS_SCORE', payload: score });
@@ -107,6 +98,7 @@ function* fetchAnxietyResponse() {
 function* submitAnxietyResponse(action) {
   try {
     yield axios.post('/api/results/anxiety', action.payload);
+    console.log(action.payload);
 
     // Dispatch an action to fetch the updated anxiety response after submitting
     yield put({ type: 'FETCH_ANXIETY_RESPONSE' });
@@ -115,20 +107,6 @@ function* submitAnxietyResponse(action) {
     const answers = action.payload.answers;
     const score = answers.reduce((a, b) => a + b, 0);
     console.log(`Total score: ${score}`);
-
-    // Dispatch an action to calculate the score message based on the score
-    let scoreMessage;
-    if (score < 5) {
-      scoreMessage = "Minimal Anxiety";
-    } else if (score < 10) {
-      scoreMessage = "Mild Anxiety";
-    } else if (score < 15) {
-      scoreMessage = "Moderate Anxiety";
-    } else if (score < 20) {
-      scoreMessage = "Moderately Severe Anxiety";
-    } else {
-      scoreMessage = "Severe Anxiety";
-    }
 
     // Dispatch an action to store the score and severity message in the Redux store
     yield put({ type: 'SET_ANXIETY_SCORE', payload: score });

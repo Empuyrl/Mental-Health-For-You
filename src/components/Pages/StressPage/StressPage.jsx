@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import JournalButton from '../../JournalModal/JournalButton';
 import { useHistory } from 'react-router-dom';
+import allFunctions from '../../helper/helper.jsx'
 
 function StressPage() {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -10,9 +11,41 @@ function StressPage() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
 
+
+  let old_Value1 = 1;
+    let old_Value2 = 2;
+    let old_Value3 = 3;
+    let old_Value4 = 4;
+    let old_Value5 = 5;
+    let old_Value6 = 6;
+    let old_Value7 = 7;
+    let old_Value8 = 8;
+    let old_Value9 = 9;
+    let old_Value10 = 10;
+
+    let value1 = Number(old_Value1);
+    let value2 = Number(old_Value2);
+    let value3 = Number(old_Value3);
+    let value4 = Number(old_Value4);
+    let value5 = Number(old_Value5);
+    let value6 = Number(old_Value6);
+    let value7 = Number(old_Value7);
+    let value8 = Number(old_Value8);
+    let value9 = Number(old_Value9);
+    let value10 = Number(old_Value10);
+  
+    const valueArray = [value1, value2, value3, value4, value5, value6, value7, value8, value9, value10];
+  // const newValue = (number1 + number2 + number3 + number4 + number5 + number6 + number7 + number8 + number9)
+  // console.log('newValue', typeof newValue,newValue)
+
+
+
+
+
+
   const handleAnswerChange = (index, value) => {
     const updatedAnswers = [...answers];
-    updatedAnswers[index] = value;
+    updatedAnswers[index] = parseInt(value);
     setAnswers(updatedAnswers);
     console.log(`Answer at index ${index} set to ${value}`);
   };
@@ -39,18 +72,19 @@ function StressPage() {
     } else {
       scoreMessage = "High Stress";
     }
-
+    const sum = allFunctions.addScore(answers);
     setScoreMessage(scoreMessage);
 
     const payload = {
       user_id: user.id,
-      score,
+      score: sum,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
     dispatch({ type: 'SUBMIT_STRESS_RESPONSE', payload });
 
     history.push('/results');
   };
+  
 
   return (
     <div>
@@ -185,21 +219,21 @@ function StressPage() {
               <button
                 type="button"
                 className={answers[3] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 0)}
+                onClick={() => handleAnswerChange(0, 3)}
               >
                 0 - Never
               </button>
               <button
                 type="button"
                 className={answers[3] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 1)}
+                onClick={() => handleAnswerChange(1, 3)}
               >
                 1 - Almost never
               </button>
               <button
                 type="button"
                 className={answers[3] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 2)}
+                onClick={() => handleAnswerChange(2, 3)}
               >
                 2 - Sometimes
               </button>
@@ -213,7 +247,7 @@ function StressPage() {
               <button
                 type="button"
                 className={answers[3] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 4)}
+                onClick={() => handleAnswerChange(4, 3)}
               >
                 4 - Very often
               </button>
@@ -225,28 +259,28 @@ function StressPage() {
               <button
                 type="button"
                 className={answers[4] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 0)}
+                onClick={() => handleAnswerChange(0, 4)}
               >
                 0 - Never
               </button>
               <button
                 type="button"
                 className={answers[4] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 1)}
+                onClick={() => handleAnswerChange(1, 4)}
               >
                 1 - Almost never
               </button>
               <button
                 type="button"
                 className={answers[4] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 2)}
+                onClick={() => handleAnswerChange(2, 4)}
               >
                 2 - Sometimes
               </button>
               <button
                 type="button"
                 className={answers[4] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 3)}
+                onClick={() => handleAnswerChange(3, 4)}
               >
                 3 - Fairly often
               </button>
@@ -305,35 +339,35 @@ function StressPage() {
               <button
                 type="button"
                 className={answers[6] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 0)}
+                onClick={() => handleAnswerChange(0, 6)}
               >
                 0 - Never
               </button>
               <button
                 type="button"
                 className={answers[6] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 1)}
+                onClick={() => handleAnswerChange(1, 6)}
               >
                 1 - Almost never
               </button>
               <button
                 type="button"
                 className={answers[6] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 2)}
+                onClick={() => handleAnswerChange(2, 6)}
               >
                 2 - Sometimes
               </button>
               <button
                 type="button"
                 className={answers[6] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 3)}
+                onClick={() => handleAnswerChange(3, 6)}
               >
                 3 - Fairly often
               </button>
               <button
                 type="button"
                 className={answers[6] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 4)}
+                onClick={() => handleAnswerChange(4, 6)}
               >
                 4 - Very often
               </button>
@@ -345,35 +379,35 @@ function StressPage() {
               <button
                 type="button"
                 className={answers[7] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(7, 0)}
+                onClick={() => handleAnswerChange(0, 7)}
               >
                 0 - Never
               </button>
               <button
                 type="button"
                 className={answers[7] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(7, 1)}
+                onClick={() => handleAnswerChange(1, 7)}
               >
                 1 - Almost never
               </button>
               <button
                 type="button"
                 className={answers[7] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(7, 2)}
+                onClick={() => handleAnswerChange(2, 7)}
               >
                 2 - Sometimes
               </button>
               <button
                 type="button"
                 className={answers[7] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(7, 3)}
+                onClick={() => handleAnswerChange(3, 7)}
               >
                 3 - Fairly often
               </button>
               <button
                 type="button"
                 className={answers[7] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(7, 4)}
+                onClick={() => handleAnswerChange(4, 7)}
               >
                 4 - Very often
               </button>
