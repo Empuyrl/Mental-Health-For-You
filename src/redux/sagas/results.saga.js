@@ -18,6 +18,7 @@ function* fetchDepressionResponse() {
 function* submitDepressionResponse(action) {
   try {
     // Submit the responses to the server and get the calculated score back
+    console.log("Saga response:", action.payload);
     const response = yield axios.post('/api/results/depression', action.payload);
     console.log("Server response:", response.data);
 

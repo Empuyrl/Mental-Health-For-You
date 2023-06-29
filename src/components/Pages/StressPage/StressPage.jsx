@@ -81,7 +81,7 @@ function StressPage() {
       scoreMessage: scoreMessage,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
-    dispatch({ type: 'SUBMIT_STRESS_RESPONSE', payload: {answers: answers} });
+    dispatch({ type: 'SUBMIT_STRESS_RESPONSE', payload: payload });
 
     history.push('/results');
   };

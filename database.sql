@@ -13,7 +13,7 @@ CREATE TABLE "entries" (
   "id" SERIAL PRIMARY KEY,
   "entry_text" TEXT NOT NULL,
   "user_id" INTEGER REFERENCES "user",
-  "createdate" DATE NOT NULL,
+  "createdate" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "category" VARCHAR(80) DEFAULT 'general'
 );
 
@@ -22,13 +22,13 @@ CREATE TABLE "response" (
   "user_id" INTEGER REFERENCES "user",
   "questionnaire_type" VARCHAR(80) NOT NULL,
   "score" INTEGER NOT NULL,
-  "createdate" DATE NOT NULL
+  "createdate" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE "resources" (
   "id" SERIAL PRIMARY KEY,
   "resource_type" VARCHAR(80) NOT NULL,
   "resource_link" TEXT NOT NULL,
   "resource_description" TEXT NOT NULL,
-  "createdate" DATE NOT NULL,
+  "createdate" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "user_id" Integer
 );

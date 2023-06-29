@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
@@ -37,23 +37,22 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Results() {
-  const depressionScore = useSelector((state) => state.depressionScore);
-  const [depressionSeverity, setDepresionSeverity] = useState('');
-  const anxietyScore = useSelector((state) => state.anxietyScore);
-  const [anxietySeverity, setAnxietySeverity] = useState('');
-  const stressScore = useSelector((state) => state.stressScore);
-  const [stressSeverity, setStressSeverity] = useState('');
+  const depressionScore = useSelector((store) => store.depressionScore);
+  // const [depressionSeverity, setDepresionSeverity] = useState('');
+  const anxietyScore = useSelector((store) => store.anxietyScore);
+  // const [anxietySeverity, setAnxietySeverity] = useState('');
+  const stressScore = useSelector((store) => store.stressScore);
+  // const [stressSeverity, setStressSeverity] = useState('');
   const dispatch = useDispatch();
   const classes = useStyles();
-
 
   useEffect(() => {
     dispatch({ type: 'FETCH_STRESS_SCORE' });
     dispatch({ type: 'FETCH_DEPRESSION_SCORE' });
     dispatch({ type: 'FETCH_ANXIETY_SCORE' });
-    setDepresionSeverity(calculateSeverityLevel(depressionScore, 'depression'));
-    setAnxietySeverity(calculateSeverityLevel(anxietyScore, 'anxiety'));
-    setStressSeverity(calculateSeverityLevel(stressScore, 'stress'));
+    // setDepresionSeverity(calculateSeverityLevel(depressionScore, 'depression'));
+    // setAnxietySeverity(calculateSeverityLevel(anxietyScore, 'anxiety'));
+    // setStressSeverity(calculateSeverityLevel(stressScore, 'stress'));
   }, []);
 
   const calculateSeverityLevel = (result, type) => {
@@ -97,10 +96,14 @@ function Results() {
     }
   };
 
+  const depressionSeverity = calculateSeverityLevel(depressionScore, 'depression');
+  const anxietySeverity = calculateSeverityLevel(anxietyScore, 'anxiety');
+  const stressSeverity = calculateSeverityLevel(stressScore, 'stress');
+
   return (
     <div className={classes.container}>
       <Typography variant="h2" className={classes.title}>
-      Personal Assessment Results
+        Personal Assessment Results
       </Typography>
 
       {/* Link to the user's profile */}
@@ -118,7 +121,10 @@ function Results() {
             Severity Level: {depressionSeverity}
           </Typography>
           <Typography variant="body1" className={classes.description}>
-            Description of the depression questionnaire...
+            The PHQ-9 is a multipurpose instrument for screening, diagnosing, monitoring and measuring the severity of depression: The PHQ-9 incorporates DSM_IV depression diagnostic criteria with other leading major depressive symptoms into a brief self-report tool.
+            The tool rates the frequency of symptoms which factor into scoring, while question 9 screens for sucicide ideation.
+            Typically self-administerd, can be done anywhere and only takes a few minutes.
+            (picture of scoring system)
           </Typography>
         </div>
       ) : (
@@ -135,7 +141,10 @@ function Results() {
             Severity Level: {anxietySeverity}
           </Typography>
           <Typography variant="body1" className={classes.description}>
-            Description of the anxiety questionnaire...
+            The GAD-7 is a self-adminsitered instrument that uses some DSM-V criteria to identify propable cases of General Anxiety Disorder along with measuring anxiety symptom severity.
+            It can also be used to screen panic, social anxiety and PTSD. It was modeled after the PHQ for quick and effective care. Measurement is based more on care in order to help personalize the care and treatment decisions.
+            Can be self administered, done anywhere, and only takes a few minutes.
+            (picture of the scoring system)
           </Typography>
         </div>
       ) : (
@@ -152,7 +161,10 @@ function Results() {
             Severity Level: {stressSeverity}
           </Typography>
           <Typography variant="body1" className={classes.description}>
-            Description of the stress questionnaire...
+            The Percieved Stress Scale is a classic stress assessment instrument, was developed in 1983 and remains and is used to help us understand how different situations affect our feelings and our perceived stress.
+            Some of the questions seem similiar, but each our different and should be treated as a new problem. The idea of the PSS is to consider what is happening in your life and their level of importance.
+            Two individuals could have the same experiences and yet entirely different answers based on their personal perception of the events.
+            (picture of the scoring system)
           </Typography>
         </div>
       ) : (

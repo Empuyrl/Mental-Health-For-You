@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool'); 
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 // Route to retrieve all resources
-router.get('/', (req, res) => {
-  const queryText = 'SELECT * FROM resources';
-  pool.query(queryText)
-    .then((result) => {
+router.get('/', rejectUnauthenticated,(req, res) => {
+  const queryText = 'SELECT * FROM resources WHERE user_id=$1';
+  pool.query(queryText, [req.user.id])
+    .then((result) => { 
       const resources = result.rows;
       res.send(resources);
     })
@@ -17,7 +20,7 @@ router.get('/', (req, res) => {
 });
 
 // Route to create a new resource
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     // Only allow logged-in users to add resources
     if (!req.user) {
       return res.sendStatus(401); // Unauthorized
@@ -38,7 +41,7 @@ router.post('/', (req, res) => {
   });
 
   // Route to delete a resource
-router.delete('/:id', (req, res) => {
+router.delete('/:id',rejectUnauthenticated, (req, res) => {
     // Only allow logged-in users to delete resources
     if (!req.user) {
       return res.sendStatus(401); // Unauthorized
