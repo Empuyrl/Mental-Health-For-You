@@ -1,35 +1,46 @@
 import React from 'react';
 import JournalButton from '../../JournalModal/JournalButton';
-import { Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Typography, Box } from '@mui/material';
 
 function AboutPage() {
-  const useStyles = makeStyles(() => ({
-    container: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-    },
-    title: {
-      marginBottom: '2rem',
-      color: '#3f51b5',
-      textAlign: 'center',
-      fontWeight: 'bold',
-    },
-    body: {
-      fontWeight: 'bold',
-    },
-  }));
-
-  const classes = useStyles();
-
   return (
-    <div className={classes.container}>
-      <h1 className={classes.title}>About Page</h1>
+    <Box
+      sx={{
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'black',
+      }}
+    >
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height: '30vh',
+          marginBottom: '2rem',
+          overflow: 'hidden',
+        }}
+      >
+        <img
+          src="https://s3-prod.adage.com/s3fs-public/20220805_mentalHealthWorkplace_3x2.jpg"
+          alt="Mind Matters"
+          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top' }}
+        />
+      </Box>
+      <Typography
+        variant="h3"
+        align="center"
+        fontWeight="bold"
+        sx={{
+          marginBottom: '2rem',
+          color: '#3f51b5',
+        }}
+      >
+        About Mind Matters
+      </Typography>
       <Typography variant="body1" align="center" fontWeight="bold">
         This project is designed to provide a comprehensive set of resources and information to support individuals facing various mental health challenges. Our goal is to offer a range of tools, education, and support to promote mental well-being and address the unique needs of each individual.
       </Typography>
@@ -49,7 +60,7 @@ function AboutPage() {
         Thank you for joining us on this journey towards mental well-being. Remember, seeking help and support is a sign of strength, and together, we can create a positive impact on the mental health of individuals worldwide.
       </Typography>
       <JournalButton />
-    </div>
+    </Box>
   );
 }
 

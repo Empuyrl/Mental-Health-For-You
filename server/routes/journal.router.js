@@ -78,7 +78,7 @@ router.delete('/entries/:id',rejectUnauthenticated, (req, res) => {
     const entryId = req.params.id;
   
     // Perform a database query to delete the journal entry
-    const queryText = 'DELETE FROM entries WHERE id = $1 AND user_id=$4';
+    const queryText = 'DELETE FROM entries WHERE id = $1 AND user_id=$2';
     const values = [entryId, req.user.id];
     pool
       .query(queryText, values)
