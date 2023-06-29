@@ -2,6 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles(() => ({
+  container: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    marginTop: '2rem',
+  },
+  title: {
+    marginBottom: '2rem',
+    fontSize: '2rem',
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    marginBottom: '1rem',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+  },
+  link: {
+    margin: '0.5rem',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color: 'black',
+    textDecoration: 'none',
+  },
+  description: {
+    marginBottom: '2rem',
+  },
+}));
 
 function Results() {
   const depressionScore = useSelector((state) => state.depressionScore);
@@ -11,6 +44,7 @@ function Results() {
   const stressScore = useSelector((state) => state.stressScore);
   const [stressSeverity, setStressSeverity] = useState('');
   const dispatch = useDispatch();
+  const classes = useStyles();
 
 
   useEffect(() => {
@@ -25,7 +59,7 @@ function Results() {
   const calculateSeverityLevel = (result, type) => {
     // Calculate the severity level based on the result range
     if (type === 'depression') {
-      if (result >= 1 && result <= 4) {
+      if (result >= 0 && result <= 4) {
         return 'Minimal depression';
       } else if (result >= 5 && result <= 9) {
         return 'Mild depression';
@@ -64,41 +98,66 @@ function Results() {
   };
 
   return (
-    <div>
-      <h2>Results</h2>
+    <div className={classes.container}>
+      <Typography variant="h2" className={classes.title}>
+      Personal Assessment Results
+      </Typography>
+
+      {/* Link to the user's profile */}
+      <Link to="/profile" className={classes.link}>
+        View Profile
+      </Link>
 
       {/* Display the depression score and severity level */}
       {depressionScore !== null ? (
         <div>
-          <h3>Depression Score: {depressionScore}</h3>
-          <h4>Severity Level: {depressionSeverity}</h4>
+          <Typography variant="h4" className={classes.subtitle}>
+            Depression Score: {depressionScore}
+          </Typography>
+          <Typography variant="h5" className={classes.subtitle}>
+            Severity Level: {depressionSeverity}
+          </Typography>
+          <Typography variant="body1" className={classes.description}>
+            Description of the depression questionnaire...
+          </Typography>
         </div>
       ) : (
-        <p>Loading depression score...</p>
+        <Typography variant="body1">Loading depression score...</Typography>
       )}
 
       {/* Display the anxiety score and severity level */}
       {anxietyScore !== null ? (
         <div>
-          <h3>Anxiety Score: {anxietyScore}</h3>
-          <h4>Severity Level: {anxietySeverity}</h4>
+          <Typography variant="h4" className={classes.subtitle}>
+            Anxiety Score: {anxietyScore}
+          </Typography>
+          <Typography variant="h5" className={classes.subtitle}>
+            Severity Level: {anxietySeverity}
+          </Typography>
+          <Typography variant="body1" className={classes.description}>
+            Description of the anxiety questionnaire...
+          </Typography>
         </div>
       ) : (
-        <p>Loading anxiety score...</p>
+        <Typography variant="body1">Loading anxiety score...</Typography>
       )}
 
       {/* Display the stress score and severity level */}
       {stressScore !== null ? (
         <div>
-          <h3>Stress Score: {stressScore}</h3>
-          <h4>Severity Level: {stressSeverity}</h4>
+          <Typography variant="h4" className={classes.subtitle}>
+            Stress Score: {stressScore}
+          </Typography>
+          <Typography variant="h5" className={classes.subtitle}>
+            Severity Level: {stressSeverity}
+          </Typography>
+          <Typography variant="body1" className={classes.description}>
+            Description of the stress questionnaire...
+          </Typography>
         </div>
       ) : (
-        <p>Loading stress score...</p>
+        <Typography variant="body1">Loading stress score...</Typography>
       )}
-
-      {/* Link to the user's profile */}
-      <Link to="/profile">View Profile</Link>
 
       {/* Render the JournalButton component */}
       <JournalButton />

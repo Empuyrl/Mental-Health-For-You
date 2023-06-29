@@ -22,24 +22,34 @@ router.get('/depression', (req, res) => {
  
 // POST route to submit depression response
 router.post('/depression', (req, res) => {
+  const { user_id, score, note } = req.body;
   console.log(req.body);
-    const { user_id, score, note } = req.body;
-    
-    // Perform a database query to insert the depression response
-    const queryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
-    const values = [user_id, 'depression', score, note, new Date()];
-    
-    pool
-      .query(queryText, values)
-      .then(() => {
-        res.sendStatus(201);
-      })
-      .catch((error) => {
-        console.error('Error submitting depression response:', error);
-        console.error('Error details:', error.message, error.stack);
-        res.sendStatus(500);
-      });
-  });
+
+  const insertQueryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
+  const insertValues = [user_id, 'depression', score, note, new Date()];
+
+  pool
+    .query(insertQueryText, insertValues)
+    .then(() => {
+      const fetchQueryText = 'SELECT score FROM "response" WHERE questionnaire_type = $1 ORDER BY createdate DESC LIMIT 1';
+      const fetchValues = ['depression'];
+
+      pool
+        .query(fetchQueryText, fetchValues)
+        .then((result) => {
+          const lastInsertedScore = result.rows[0];
+          res.status(201).send(lastInsertedScore);
+        })
+        .catch((fetchError) => {
+          console.error('Error fetching the last inserted score:', fetchError);
+          res.sendStatus(500);
+        });
+    })
+    .catch((insertError) => {
+      console.error('Error submitting depression response:', insertError);
+      res.sendStatus(500);
+    });
+});
   
 
 // GET route to fetch anxiety response
@@ -60,21 +70,39 @@ router.get('/anxiety', (req, res) => {
       });
   });
 
-// POST route to submit anxiety response
-router.post('/anxiety', (req, res) => {
+  router.post('/anxiety', (req, res) => {
     const { user_id, score, note } = req.body;
-    
+      
     // Perform a database query to insert the anxiety response
-    const queryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
-    const values = [user_id, 'anxiety', score, note, new Date()];
-    
+    if(!score) {
+      res.status(400).send({ error: 'Score value is required' });
+      return;
+  }
+    const insertQueryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
+    const insertValues = [user_id, 'anxiety', score, note, new Date()];
+    console.log('user_id:', user_id, 'score:', score, 'note:', note);
+  
     pool
-      .query(queryText, values)
+      .query(insertQueryText, insertValues)
       .then(() => {
-        res.sendStatus(201);
+        // After the insert query has been successful, perform another query to fetch the last inserted score
+        const fetchQueryText = 'SELECT score FROM "response" WHERE questionnaire_type = $1 ORDER BY createdate DESC LIMIT 1';
+        const fetchValues = ['anxiety'];
+  
+        pool
+          .query(fetchQueryText, fetchValues)
+          .then((result) => {
+            const lastInsertedScore = result.rows[0];
+            // Send the last inserted score in the response
+            res.status(201).send(lastInsertedScore);
+          })
+          .catch((fetchError) => {
+            console.error('Error fetching the last inserted score:', fetchError);
+            res.sendStatus(500);
+          });
       })
-      .catch((error) => {
-        console.error('Error submitting anxiety response:', error);
+      .catch((insertError) => {
+        console.error('Error submitting anxiety response:', insertError);
         res.sendStatus(500);
       });
   });
@@ -97,21 +125,34 @@ router.get('/stress', (req, res) => {
       });
   });
 
-//Post route for stress
+
+// POST route for stress
 router.post('/stress', (req, res) => {
-    const { user_id, score, note } = req.body;
-    // Perform a database query to insert the stress response
-    const queryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
-    const values = [user_id, 'stress', score, note, new Date()];
-    pool
-    .query(queryText, values)
+  const { user_id, score, note } = req.body;
+
+  const insertQueryText = 'INSERT INTO "response" (user_id, questionnaire_type, score, note, createdate) VALUES ($1, $2, $3, $4, $5)';
+  const insertValues = [user_id, 'stress', score, note, new Date()];
+
+  pool
+    .query(insertQueryText, insertValues)
     .then(() => {
-        res.sendStatus(201);
+      const fetchQueryText = 'SELECT score FROM "response" WHERE questionnaire_type = $1 ORDER BY createdate DESC LIMIT 1';
+      const fetchValues = ['stress'];
+
+      pool
+        .query(fetchQueryText, fetchValues)
+        .then((result) => {
+          const lastInsertedScore = result.rows[0];
+          res.status(201).send(lastInsertedScore);
+        })
+        .catch((fetchError) => {
+          console.error('Error fetching the last inserted score:', fetchError);
+          res.sendStatus(500);
+        });
     })
-    .catch((error) => {
-        console.log('Error submitting stress response:', error);
-        res.sendStatus(500);
+    .catch((insertError) => {
+      console.error('Error submitting stress response:', insertError);
+      res.sendStatus(500);
     });
 });
-
 module.exports = router;

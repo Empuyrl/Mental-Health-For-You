@@ -26,7 +26,8 @@ const depressionSeverityReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_DEPRESSION_SEVERITY':
       console.log('Reducer received SET_DEPRESSION_SEVERITY action', action.payload);
-      return action.payload;
+      console.log('Action payload:', action.payload);
+      return action.payload || '';
     default:
       return state;
   }
@@ -60,7 +61,8 @@ const depressionSeverityReducer = (state = '', action) => {
     switch (action.type) {
       case 'SET_ANXIETY_SEVERITY':
         console.log('Reducer received SET_ANXIETY_SEVERITY action', action.payload);
-        return action.payload;
+        console.log('Action payload:', action.payload);
+        return action.payload || '';
       default:
         return state;
     }
@@ -94,7 +96,8 @@ const depressionSeverityReducer = (state = '', action) => {
     switch (action.type) {
       case 'SET_STRESS_SEVERITY':
         console.log('Reducer received SET_STRESS_SEVERITY action', action.payload);
-        return action.payload;
+        console.log('Action payload:', action.payload);
+        return action.payload || '';
       default:
         return state;
     }

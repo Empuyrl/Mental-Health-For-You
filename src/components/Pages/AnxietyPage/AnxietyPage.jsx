@@ -62,9 +62,10 @@ console.log(`Calculated score message: ${scoreMessage}`);
     const payload = {
       user_id: user.id,
       score: sum,
+      scoreMessage: scoreMessage,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
-    dispatch({ type: 'SUBMIT_ANXIETY_RESPONSE', payload });
+    dispatch({ type: 'SUBMIT_ANXIETY_RESPONSE', payload: {answers: answers} });
     history.push('/results');
   };
 
@@ -308,6 +309,7 @@ console.log(`Calculated score message: ${scoreMessage}`);
           </label>
         </div>
         <div>
+        <p>{scoreMessage}</p>
           <button type="submit">Submit</button>
         </div>
       </form>

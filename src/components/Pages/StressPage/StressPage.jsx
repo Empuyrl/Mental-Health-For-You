@@ -78,9 +78,10 @@ function StressPage() {
     const payload = {
       user_id: user.id,
       score: sum,
+      scoreMessage: scoreMessage,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
-    dispatch({ type: 'SUBMIT_STRESS_RESPONSE', payload });
+    dispatch({ type: 'SUBMIT_STRESS_RESPONSE', payload: {answers: answers} });
 
     history.push('/results');
   };
@@ -495,6 +496,7 @@ function StressPage() {
           </label>
         </div>
         <div>
+        <p>{scoreMessage}</p>
           <button type="submit">Submit</button>
         </div>
       </form>
