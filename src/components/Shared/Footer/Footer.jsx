@@ -1,6 +1,7 @@
 import React from 'react';
-import './Footer.css';
-import { Typography, Box } from '@mui/material';
+import { Box, Typography, Link } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 // Generate the style
 
@@ -12,16 +13,30 @@ import { Typography, Box } from '@mui/material';
 function Footer() {
   return (
     <Box
+      component="footer"
       sx={{
-        width: '100%',
-        padding: '20px',
-        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        color: '#f2f2f2',
+        padding: '10px',
+        position: 'fixed',
         bottom: 0,
         left: 0,
-        backgroundColor: '#f5f5f5', // Use any color that fits your design
+        right: 0,
       }}
     >
-      <Typography variant="body1">&copy;Mind Matters (Contact Information:github/email)</Typography>
+      <Typography variant="subtitle1">Mind Matters</Typography>
+      <Typography variant="subtitle1">©️ Jack Blonigen</Typography>
+      <div>
+        <Link href="https://github.com/empuyrl" target="_blank" rel="noopener" color="inherit">
+          <GitHubIcon sx={{ mr: 2 }} />
+        </Link>
+        <Link href="https://www.linkedin.com/in/jack-blonigen/" target="_blank" rel="noopener" color="inherit">
+          <LinkedInIcon />
+        </Link>
+      </div>
     </Box>
   );
 }

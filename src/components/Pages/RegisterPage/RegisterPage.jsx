@@ -2,8 +2,8 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 import { useHistory } from 'react-router-dom';
 import { Box, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/system';
 import './RegisterPage.css';
-import LoginForm from '../LoginPage/LoginForm';
 
 const PaperContainer = styled(Paper)(({ theme }) => ({
   background: `url(https://hbr.org/resources/images/article_assets/2018/10/Oct22_18_862457080.png)`,
@@ -53,7 +53,7 @@ function RegisterPage() {
   return (
     <PaperContainer elevation={3} className="register-page"> 
       <FormContainer className="register-form">
-        <LoginForm />
+        <RegisterForm />
       <StyledLink variant="subtitle1" onClick={handleLoginClick}>
         Already have an account? Login here.
       </StyledLink>

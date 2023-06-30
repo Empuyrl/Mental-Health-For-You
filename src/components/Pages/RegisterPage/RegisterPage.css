@@ -1,8 +1,8 @@
-.login-page {
+.register-page {
     position: relative;
   }
   
-  .background-imagelogin {
+  .background-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,14 +13,14 @@
     z-index: -50;
   }
 
-  .login-form {
+  .register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
   
-  #login-btn {
+  #register-btn {
     width: 100px;
     height: 40px;
     font-size: 13px;

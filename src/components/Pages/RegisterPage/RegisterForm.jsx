@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, TextField, Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 import './RegisterPage.css';
 
 function RegisterForm() {
@@ -8,6 +9,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -23,15 +25,15 @@ function RegisterForm() {
 
   return (
     <form className="register-form" onSubmit={registerUser}>
-      <Typography variant="h6" className="register-form-title">
-        Register User
+      <Typography variant="h6" className="login-form-title">
+        Register
       </Typography>
-      {errors.registrationMessage && (
-        <Typography variant="h3" color="error" className="registration-form-error">
-          {errors.registrationMessage}
+      {errors.loginMessage && (
+        <Typography variant="h3" color="error" className="login-form-error">
+          {errors.loginMessage}
         </Typography>
       )}
-      <div className="registration-form-container">
+      <div className="login-form-container">
         <TextField
           label="Username"
           type="text"
