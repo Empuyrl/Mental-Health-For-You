@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 
 const Container = styled(Box)(({ theme }) => ({
-  background: '#f7f7f7', // Light gray color resembling a notebook page
+  background: `url(https://www.photos-public-domain.com/wp-content/uploads/2011/01/yellow-notebook-paper-texture.jpg)`,
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
@@ -54,7 +54,7 @@ const NotebookPage = () => {
 
   return (
     <Container>
-      <Title variant="h2">Notebook Page</Title>
+      <Title variant="h2">Embrace: A Journey to Mental Wellness</Title>
       <button onClick={() => { setCurrentEntry(null); setIsModalOpen(true); }}>Open Journal</button>
       {Object.entries(entriesByCategory).map(([category, entries]) => (
         <div key={category}>
