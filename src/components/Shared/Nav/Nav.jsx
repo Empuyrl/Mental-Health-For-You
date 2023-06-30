@@ -9,7 +9,7 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
+    <AppBar position="sticky" sx={{ backgroundColor: ' #FF8E53' }}>
       <div className="nav">
         <Link to="/home">
           <h2 className="nav-title">Mind Matters</h2>
@@ -33,9 +33,9 @@ function Nav() {
               <Link className="navLink" to="/user">
                 Home
               </Link>
-              <Link className="navLink" to="/profile">
+              {/* <Link className="navLink" to="/profile">
                 Profile
-              </Link>
+              </Link> */}
               <Link className="navLink" to="/depression">
                 Depression Page
               </Link>

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button, Typography, Paper, Container } from '@mui/material';
 import './LandingPage.css';
-
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterPage/RegisterForm';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
+  const [heading, setHeading] = useState('Welcome to Mind');
   const history = useHistory();
 
   const onLogin = (event) => {
@@ -15,25 +15,35 @@ function LandingPage() {
   };
 
   return (
-    <div className="container">
-      <h2>{heading}</h2>
-
-      <div className="grid">
-        <div className="grid-col grid-col_8">
-       
-        </div>
-        <div className="grid-col grid-col_4">
-          <RegisterForm />
-
-          <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
-          </center>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <Paper sx={{mt:5}}>
+        <Typography sx={{ mx: 2, my: 4 }} variant="h4">{heading}</Typography>
+        <Typography sx={{ mx: 2, my: 4 }} variant="body1">
+          Welcome to Mind Matters, 
+        </Typography>
+        <Typography sx={{ mx: 2, my: 4 }} variant="body2">
+          With Mind Matters,
+        </Typography>
+        <RegisterForm />
+        <Typography align="center" variant="h5">Already a Member?</Typography>
+        <Button 
+          sx={{ 
+            mx: 2.9, 
+            mt: 1.5, 
+            mb: 4, 
+            px: 12.2, 
+            backgroundColor: 'blue', // Normal color
+            '&:hover': {
+              backgroundColor:  '#00f46a', // Hover color
+            }
+          }} 
+          variant="contained" 
+          onClick={onLogin}
+        >
+          Login
+        </Button>
+      </Paper>
+    </Container>
   );
 }
 

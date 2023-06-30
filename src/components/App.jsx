@@ -13,7 +13,6 @@ import DepressionPage from './Pages/DepressionPage/DepressionPage';
 import StressPage from './Pages/StressPage/StressPage';
 import AnxietyPage from './Pages/AnxietyPage/AnxietyPage';
 import ResultsPage from './Pages/ResultsPage/ResultsPage';
-import ProfilePage from './Pages/Profile/Profile';
 import ResourcesPage from './Pages/ResourcesPage/ResourcesPage';
 import NotebookPage from './Pages/NotebookPage/NotebookPage';
 import './App.css';
@@ -87,13 +86,13 @@ function App() {
             <ResultsPage />
           </Route>
 
-          <ProtectedRoute
+          {/* <ProtectedRoute
             // logged in shows ProfilePage else redirects to /login
             exact
             path="/profile"
           >
             <ProfilePage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <Route
             // open to all users

@@ -40,6 +40,6 @@ function Footer() {
       </div>
     </Box>
   );
-}
+    }
 
-export default Footer;
+    export default Footer;
