@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Typography, TextField, Button } from '@mui/material';
+import './RegisterPage.css';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -20,39 +22,43 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+    <form className="register-form" onSubmit={registerUser}>
+      <Typography variant="h6" className="register-form-title">
+        Register User
+      </Typography>
       {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
+        <Typography variant="h3" color="error" className="registration-form-error">
           {errors.registrationMessage}
-        </h3>
+        </Typography>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+      <div className="registration-form-container">
+        <TextField
+          label="Username"
+          type="text"
+          name="username"
+          required
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+          variant="outlined"
+          size="medium"
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Password"
+          type="password"
+          name="password"
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          variant="outlined"
+          size="medium"
+          fullWidth
+          margin="normal"
+        />
+        <Button variant="contained" color="primary" type="submit" id='register-btn'>
+          Register
+        </Button>
       </div>
     </form>
   );
