@@ -29,6 +29,7 @@ function Footer() {
     >
       <Typography variant="subtitle1">Mind Matters</Typography>
       <Typography variant="subtitle1">©️ Jack Blonigen</Typography>
+      <Typography variant="subtitle1">jack.je.blonigen@gmail.com</Typography>
       <div>
         <Link href="https://github.com/empuyrl" target="_blank" rel="noopener" color="inherit">
           <GitHubIcon sx={{ mr: 2 }} />
