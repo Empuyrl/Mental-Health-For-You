@@ -7,7 +7,7 @@ import './LandingPage.css';
 import RegisterForm from '../RegisterPage/RegisterForm';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome to Mind');
+  const [heading, setHeading] = useState('Remember Your Mind Matters');
   const history = useHistory();
 
   const onLogin = (event) => {
