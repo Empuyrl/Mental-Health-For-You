@@ -40,7 +40,7 @@ function LoginPage() {
   const history = useHistory();
 
   const handleRegisterClick = () => {
-    history.push('/register');
+    history.push('/registration');
   };
 
   return (
