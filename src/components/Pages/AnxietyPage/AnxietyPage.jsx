@@ -3,6 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 import allFunctions from '../../helper/helper.jsx'
+import { Box, Container, Typography, FormControl, FormControlLabel, Radio, Button, Paper } from '@mui/material';
+import { styled } from '@mui/system';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  maxWidth: 800,
+  margin: 'auto',
+  marginTop: theme.spacing(2),
+  padding: theme.spacing(2),
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+}));
 
 function AnxietyPage() {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -69,253 +82,80 @@ function AnxietyPage() {
     history.push('/results');
   };
 
+  const questions = [
+    "Over the last two weeks, how often have you been bothered by feeling nervous, anxious, or on edge?",
+    "Over the last two weeks, how often have you been bothered by not being able to stop or control worrying?",
+    "Over the last two weeks, how often have you been bothered by worrying too much about different things?",
+    "Over the last two weeks, how often have you been bothered by trouble relaxing?",
+    "Over the last two weeks, how often have you been bothered by being so restless that it is hard to sit still?",
+    "Over the last two weeks, how often have you been bothered by becoming easily annoyed or irritable?",
+    "Over the last two weeks, how often have you been bothered by feeling afraid, as if something awful might happen?",
+  ];
+
   return (
-    <div>
-      <h1>General Anxiety Questionnaire GAD-7</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Over the last two weeks, how often have you been bothered by the following problems?</p>
-          <p>0 - Not at all, 1 - Several days, 2 - More than half the days, 3 - Nearly every day</p>
-          <label>
-            Feeling nervous, anxious, or on edge:
-            <div>
-              <button
-                type="button"
-                className={answers[0] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-          <label>
-            Not being able to stop or control worrying:
-            <div>
-              <button
-                type="button"
-                className={answers[1] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-          <label>
-            Worrying too much about different things:
-            <div>
-              <button
-                type="button"
-                className={answers[2] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-          <label>
-            Trouble relaxing:
-            <div>
-              <button
-                type="button"
-                className={answers[3] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-          <label>
-            Being so restless that it is hard to sit still:
-            <div>
-              <button
-                type="button"
-                className={answers[4] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-          <label>
-            Becoming easily annoyed or irritable:
-            <div>
-              <button
-                type="button"
-                className={answers[5] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-          <label>
-            Feeling afraid, as if something awful might happen:
-            <div>
-              <button
-                type="button"
-                className={answers[6] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 0)}
-              >
-                0 - Not at all
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 1)}
-              >
-                1 - Several days
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 2)}
-              >
-                2 - More than half the days
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(6, 3)}
-              >
-                3 - Nearly every day
-              </button>
-            </div>
-          </label>
-        </div>
-        <div>
-          <p>{scoreMessage}</p>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-      <JournalButton />
-    </div>
+    <Box
+      sx={{
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'black',
+        padding: '2rem',
+      }}
+    >
+      <Container sx={{ mt: 4 }}>
+        <StyledPaper>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            General Anxiety Questionnaire GAD-7
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ mb: 3 }}>
+              <Typography>
+                Over the last two weeks, how often have you been bothered by the following problems?
+              </Typography>
+              <Typography>
+                0 - Not at all, 1 - Several days, 2 - More than half the days, 3 - Nearly every day
+              </Typography>
+            </Box>
+            {questions.map((question, index) => (
+              <Box key={index} sx={{ mb: 2 }}>
+                <Typography variant="h6">{question}</Typography>
+                <FormControl component="fieldset" sx={{ display: 'flex' }}>
+                  {[...Array(4)].map((_, value) => (
+                    <FormControlLabel
+                      key={value}
+                      control={<Radio />}
+                      label={`${value} - ${[
+                        'Not at all',
+                        'Several days',
+                        'More than half the days',
+                        'Nearly every day',
+                      ][value]}`}
+                      checked={answers[index] === value}
+                      onClick={() => handleAnswerChange(index, value)}
+                      sx={{ flex: 1 }}
+                    />
+                  ))}
+                </FormControl>
+              </Box>
+            ))}
+            <Box sx={{ mb: 2 }}>
+              <Typography>Score Message: {scoreMessage}</Typography>
+              <Button type="submit" variant="contained" color="secondary">
+                Submit
+              </Button>
+            </Box>
+          </form>
+          <JournalButton />
+          <Box>
+            {/* Make sure to handle the case where anxietyResults is undefined */}
+          </Box>
+        </StyledPaper>
+      </Container>
+    </Box>
   );
-}
+};
 
 export default AnxietyPage;

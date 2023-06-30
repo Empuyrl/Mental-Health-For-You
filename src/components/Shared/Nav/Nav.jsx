@@ -9,7 +9,7 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: ' #FF8E53' }}>
+    <AppBar position="sticky" sx={{ backgroundColor: ' black' }}>
       <div className="nav">
         <Link to="/home">
           <h2 className="nav-title">Mind Matters</h2>

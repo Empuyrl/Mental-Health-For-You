@@ -3,6 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import JournalButton from '../../JournalModal/JournalButton';
 import { useHistory } from 'react-router-dom';
 import allFunctions from '../../helper/helper.jsx'
+import { Container, Typography, Box, Button, Radio, FormControlLabel, FormControl, Paper } from '@mui/material';
+import { styled } from '@mui/system';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  maxWidth: 800,
+  margin: 'auto',
+  marginTop: theme.spacing(2),
+  padding: theme.spacing(2),
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+}));
 
 function StressPage() {
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -86,423 +99,77 @@ function StressPage() {
     history.push('/results');
   };
   
+  const questions = [
+    "Over the last month, how often have you been upset because of something that happened unexpectedly and out of your control?",
+    "In the last month, how often have you felt that you were unable to control the important things in your life?",
+    "In the last month, how often have you felt nervous and stressed?",
+    "In the last month, how often have you felt confident about your ability to handle your personal problems?",
+    "In the last month, how often have you felt that things were going your way?",
+    "In the last month, how often have you found that you could not cope with all the things that you had to do?",
+    "In the last month, how often have you been able to control irritations in your life?",
+    "In the last month, how often have you felt that you were on top of things?",
+    "In the last month, how often have you been angered because of things that happened that were outside of your control?",
+    "In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?"
+  ];
 
   return (
-    <div>
-      <h1>Percieved Stress Scale Questionnaire PSS</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Over the last month, how often have you been bothered by the following problems?</p>
-          <p>0 - Never, 1 - Almost never, 2 - Sometimes, 3 - Fairly often, 4 - Very often</p>
-          <label>
-            In the last month, how often have you been upset because of something that happened unexpectedly and out of your control?
-            <div>
-              <button
-                type="button"
-                className={answers[0] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 0)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 1)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 2)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[0] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you felt that you were unable to control the important things in your life?
-            <div>
-              <button
-                type="button"
-                className={answers[1] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 0)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 1)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 2)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[1] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you felt nervous and stressed?
-            <div>
-              <button
-                type="button"
-                className={answers[2] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 0)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 1)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 2)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[2] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you felt confident about your ability to handle your personal problems?
-            <div>
-              <button
-                type="button"
-                className={answers[3] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 3)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 3)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 3)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[3] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 3)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you felt that things were going your way?
-            <div>
-              <button
-                type="button"
-                className={answers[4] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 4)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 4)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 4)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 4)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[4] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you found that you could not cope with all the things that you had to do?
-            <div>
-              <button
-                type="button"
-                className={answers[5] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 0)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 1)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 2)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[5] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(5, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you been able to control irritations in your life?
-            <div>
-              <button
-                type="button"
-                className={answers[6] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 6)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 6)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 6)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 6)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[6] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 6)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you felt that you were on top of things?
-            <div>
-              <button
-                type="button"
-                className={answers[7] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(0, 7)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[7] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(1, 7)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[7] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(2, 7)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[7] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(3, 7)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[7] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(4, 7)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you been angered because of things that happened that were outside of your control?
-            <div>
-              <button
-                type="button"
-                className={answers[8] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(8, 0)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[8] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(8, 1)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[8] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(8, 2)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[8] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(8, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[8] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(8, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-          <label>
-            In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?
-            <div>
-              <button
-                type="button"
-                className={answers[9] === 0 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(9, 0)}
-              >
-                0 - Never
-              </button>
-              <button
-                type="button"
-                className={answers[9] === 1 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(9, 1)}
-              >
-                1 - Almost never
-              </button>
-              <button
-                type="button"
-                className={answers[9] === 2 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(9, 2)}
-              >
-                2 - Sometimes
-              </button>
-              <button
-                type="button"
-                className={answers[9] === 3 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(9, 3)}
-              >
-                3 - Fairly often
-              </button>
-              <button
-                type="button"
-                className={answers[9] === 4 ? 'selected' : ''}
-                onClick={() => handleAnswerChange(9, 4)}
-              >
-                4 - Very often
-              </button>
-            </div>
-          </label>
-        </div>
-        <div>
-        <p>{scoreMessage}</p>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-      <JournalButton />
-    </div>
+    <Box
+      sx={{
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'black',
+        padding: '2rem',
+      }}
+    >
+      <Container sx={{ mt: 4 }}>
+        <StyledPaper>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Percieved Stress Scale Questionnaire PSS
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ mb: 3 }}>
+              <Typography>Over the last month, how often have you been bothered by the following problems?</Typography>
+              <Typography>0 - Never, 1 - Almost never, 2 - Sometimes, 3 - Fairly often, 4 - Very often</Typography>
+            </Box>
+            {questions.map((question, i) => (
+              <Box key={i} sx={{ mb: 2 }}>
+                <Typography variant="h6">
+                  {question}
+                </Typography>
+                <FormControl component="fieldset" sx={{ display: 'flex' }}>
+                  {[...Array(5)].map((_, value) => (
+                    <FormControlLabel
+                      key={value}
+                      control={<Radio />}
+                      label={`${value} - ${["Never", "Almost never", "Sometimes", "Fairly often", "Very often"][value]}`}
+                      checked={answers[i] === value}
+                      onClick={() => handleAnswerChange(i, value)}
+                      sx={{ flex: 1 }}
+                    />
+                  ))}
+                </FormControl>
+              </Box>
+            ))}
+            <Box sx={{ mb: 2 }}>
+              <Typography>Score Message: {scoreMessage}</Typography>
+              <Button type="submit" variant="contained" color="secondary">
+                Submit
+              </Button>
+            </Box>
+          </form>
+          <JournalButton />
+          <Box>
+            {/* Make sure to handle the case where stressResults is undefined */}
+          </Box>
+        </StyledPaper>
+      </Container>
+    </Box>
   );
-}
+};
+
 
 export default StressPage;

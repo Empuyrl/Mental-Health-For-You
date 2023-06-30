@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 
 const Container = styled(Box)(({ theme }) => ({
@@ -17,12 +17,6 @@ const Container = styled(Box)(({ theme }) => ({
 const Title = styled(Typography)(({ theme }) => ({
   marginBottom: '2rem',
   fontSize: '2rem',
-  fontWeight: 'bold',
-}));
-
-const SubTitle = styled(Typography)(({ theme }) => ({
-  marginBottom: '1rem',
-  fontSize: '1.5rem',
   fontWeight: 'bold',
 }));
 
@@ -106,7 +100,7 @@ function Results() {
 
       {/* Display the depression score and severity level */}
       {depressionScore !== null ? (
-        <div>
+        <Paper>
           <Typography variant="h4">
             Depression Score: {depressionScore}
           </Typography>
@@ -122,16 +116,15 @@ function Results() {
             The Patient Health Questionnaire (PHQ-9) is a multipurpose instrument for screening, diagnosing, monitoring and measuring the severity of depression: The PHQ-9 incorporates DSM_IV depression diagnostic criteria with other leading major depressive symptoms into a brief self-report tool.
             The tool rates the frequency of symptoms which factor into scoring, while question 9 screens for sucicide ideation.
             Typically self-administerd, can be done anywhere and only takes a few minutes.
-            (picture of scoring system)
           </Typography>
-        </div>
+        </Paper>
       ) : (
         <Typography variant="body1">Loading depression score...</Typography>
       )}
 
       {/* Display the anxiety score and severity level */}
       {anxietyScore !== null ? (
-        <div>
+        <Paper>
           <Typography variant="h4">
             Anxiety Score: {anxietyScore}
           </Typography>
@@ -147,16 +140,15 @@ function Results() {
             The Generalized Anxiety Disorder Scale (GAD-7) is a self-adminsitered instrument that uses some DSM-V criteria to identify propable cases of General Anxiety Disorder along with measuring anxiety symptom severity.
             It can also be used to screen panic, social anxiety and PTSD. It was modeled after the PHQ for quick and effective care. Measurement is based more on care in order to help personalize the care and treatment decisions.
             Can be self administered, done anywhere, and only takes a few minutes.
-            (picture of the scoring system)
           </Typography>
-        </div>
+        </Paper>
       ) : (
         <Typography variant="body1">Loading anxiety score...</Typography>
       )}
 
       {/* Display the stress score and severity level */}
       {stressScore !== null ? (
-        <div>
+        <Paper>
           <Typography variant="h4">
             Stress Score: {stressScore}
           </Typography>
@@ -172,16 +164,15 @@ function Results() {
             The Percieved Stress Scale(PSS) is a classic stress assessment instrument, was developed in 1983 and remains and is used to help us understand how different situations affect our feelings and our perceived stress.
             Some of the questions seem similiar, but each our different and should be treated as a new problem. The idea of the PSS is to consider what is happening in your life and their level of importance.
             Two individuals could have the same experiences and yet entirely different answers based on their personal perception of the events.
-            (picture of the scoring system)
           </Typography>
-        </div>
+        </Paper>
       ) : (
         <Typography variant="body1">Loading stress score...</Typography>
       )}
 
       {/* Render the JournalButton component */}
       <JournalButton />
-      </Container>
+    </Container>
   );
 }
 
