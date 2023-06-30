@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 import allFunctions from '../../helper/helper.jsx'
-import { Container, Typography, Box, Button, Radio, FormControlLabel, FormControl, Paper, Grid } from '@mui/material';
+import { Container, Typography, Box, Button, Radio, FormControlLabel, Paper, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({

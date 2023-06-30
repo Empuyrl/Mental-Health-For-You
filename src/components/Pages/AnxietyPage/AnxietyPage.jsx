@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 import allFunctions from '../../helper/helper.jsx'
-import { Box, Container, Typography, FormControl, FormControlLabel, Radio, Button, Paper } from '@mui/material';
+import { Box, Container, Typography, FormControlLabel, Radio, Button, Paper, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -122,8 +122,9 @@ function AnxietyPage() {
             {questions.map((question, index) => (
               <Box key={index} sx={{ mb: 2 }}>
                 <Typography variant="h6">{question}</Typography>
-                <FormControl component="fieldset" sx={{ display: 'flex' }}>
+                <Grid container spacing={2}>
                   {[...Array(4)].map((_, value) => (
+                    <Grid item xs>
                     <FormControlLabel
                       key={value}
                       control={<Radio />}
@@ -137,8 +138,9 @@ function AnxietyPage() {
                       onClick={() => handleAnswerChange(index, value)}
                       sx={{ flex: 1 }}
                     />
+                    </Grid>
                   ))}
-                </FormControl>
+                  </Grid>
               </Box>
             ))}
             <Box sx={{ mb: 2 }}>

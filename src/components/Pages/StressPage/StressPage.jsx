@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import JournalButton from '../../JournalModal/JournalButton';
 import { useHistory } from 'react-router-dom';
 import allFunctions from '../../helper/helper.jsx'
-import { Container, Typography, Box, Button, Radio, FormControlLabel, FormControl, Paper } from '@mui/material';
+import { Container, Typography, Box, Button, Radio, FormControlLabel, Paper, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -111,7 +111,7 @@ function StressPage() {
     "In the last month, how often have you been angered because of things that happened that were outside of your control?",
     "In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?"
   ];
-
+  
   return (
     <Box
       sx={{
@@ -128,7 +128,7 @@ function StressPage() {
       <Container sx={{ mt: 4 }}>
         <StyledPaper>
           <Typography variant="h4" sx={{ mb: 2 }}>
-            Percieved Stress Scale Questionnaire PSS
+            Perceived Stress Scale Questionnaire PSS
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
@@ -137,21 +137,20 @@ function StressPage() {
             </Box>
             {questions.map((question, i) => (
               <Box key={i} sx={{ mb: 2 }}>
-                <Typography variant="h6">
-                  {question}
-                </Typography>
-                <FormControl component="fieldset" sx={{ display: 'flex' }}>
+                <Typography variant="h6">{question}</Typography>
+                <Grid container spacing={2}>
                   {[...Array(5)].map((_, value) => (
-                    <FormControlLabel
-                      key={value}
-                      control={<Radio />}
-                      label={`${value} - ${["Never", "Almost never", "Sometimes", "Fairly often", "Very often"][value]}`}
-                      checked={answers[i] === value}
-                      onClick={() => handleAnswerChange(i, value)}
-                      sx={{ flex: 1 }}
-                    />
+                    <Grid item xs={2} key={value}>
+                      <FormControlLabel
+                        control={<Radio />}
+                        label={`${value} - ${['Never', 'Almost never', 'Sometimes', 'Fairly often', 'Very often'][value]}`}
+                        checked={answers[i] === value}
+                        onClick={() => handleAnswerChange(i, value)}
+                        sx={{ flex: 1 }}
+                      />
+                    </Grid>
                   ))}
-                </FormControl>
+                </Grid>
               </Box>
             ))}
             <Box sx={{ mb: 2 }}>
@@ -162,14 +161,13 @@ function StressPage() {
             </Box>
           </form>
           <JournalButton />
-          <Box>
-            {/* Make sure to handle the case where stressResults is undefined */}
-          </Box>
+          <Box>{/* Make sure to handle the case where stressResults is undefined */}</Box>
         </StyledPaper>
       </Container>
     </Box>
   );
-};
+}
+
 
 
 export default StressPage;
