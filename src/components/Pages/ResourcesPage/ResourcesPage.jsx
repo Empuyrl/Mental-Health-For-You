@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography,TextField, Button } from '@mui/material';
 import { styled } from '@mui/system';
 
 const Container = styled(Box)(({ theme }) => ({
@@ -30,6 +30,37 @@ const ResourcesPage = () => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.resources);
   const location = useLocation();
+  const [newResource, setNewResource] = useState({
+    resource_type: '',
+    resource_description: '',
+    resource_link: ''
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewResource((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const currentDate = new Date().toISOString();
+
+    const newResourceWithDate = {
+      ...newResource,
+      createdate: currentDate
+    };
+    // Dispatch an action to add the new resource to the Redux store
+    dispatch({ type: 'ADD_RESOURCE', payload: newResourceWithDate });
+    // Reset the form inputs
+    setNewResource({
+      resource_type: '',
+      resource_description: '',
+      resource_link: ''
+    });
+  };
 
   useEffect(() => {
     dispatch({ type: 'FETCH_RESOURCES' });
@@ -92,6 +123,35 @@ const ResourcesPage = () => {
           </ul>
         </Box>
       ))}
+          <Box>
+      <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Add New Resource</Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          name="resource_type"
+          label="Resource Type"
+          value={newResource.resource_type}
+          onChange={handleInputChange}
+          required
+        />
+        <TextField
+          name="resource_description"
+          label="Resource Description"
+          value={newResource.resource_description}
+          onChange={handleInputChange}
+          required
+        />
+        <TextField
+          name="resource_link"
+          label="Resource Link"
+          value={newResource.resource_link}
+          onChange={handleInputChange}
+          required
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Add Resource
+        </Button>
+      </form>
+    </Box>
       <JournalButton />
     </Container>
   );
