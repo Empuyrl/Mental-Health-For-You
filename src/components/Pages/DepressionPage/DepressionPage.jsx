@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 import allFunctions from '../../helper/helper.jsx'
-import { Container, Typography, Box, Button, Radio, FormControlLabel, FormControl, Paper } from '@mui/material';
+import { Container, Typography, Box, Button, Radio, FormControlLabel, FormControl, Paper, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -135,18 +135,19 @@ const DepressionPage = () => {
                 <Typography variant="h6">
                   {question}
                 </Typography>
-                <FormControl component="fieldset" sx={{ display: 'flex' }}>
+                <Grid container spacing={2}>
                   {[...Array(4)].map((_, value) => (
-                    <FormControlLabel
-                      key={value}
-                      control={<Radio />}
-                      label={`${value} - ${["Not at all", "Several days", "More than half the days", "Nearly every day"][value]}`}
-                      checked={answers[i] === value}
-                      onClick={() => handleAnswerChange(i, value)}
-                      sx={{ flex: 1 }}
-                    />
+                    <Grid item xs>
+                      <FormControlLabel
+                        key={value}
+                        control={<Radio />}
+                        label={`${value} - ${["Not at all", "Several days", "More than half the days", "Nearly every day"][value]}`}
+                        checked={answers[i] === value}
+                        onClick={() => handleAnswerChange(i, value)}
+                      />
+                    </Grid>
                   ))}
-                </FormControl>
+                </Grid>
               </Box>
             ))}
             <Box sx={{ mb: 2 }}>
@@ -164,6 +165,6 @@ const DepressionPage = () => {
       </Container>
     </Box>
   );
-};
+  }
 
 export default DepressionPage;
