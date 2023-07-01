@@ -6,6 +6,7 @@ import { styled } from '@mui/system';
 
 
 const Container = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
   display: 'flex',
   flexDirection: 'column',
@@ -25,10 +26,6 @@ const Title = styled(Typography)(({ theme }) => ({
   marginBottom: '2rem',
   fontSize: '2rem',
   fontWeight: 'bold',
-}));
-
-const Description = styled(Typography)(({ theme }) => ({
-  marginBottom: '2rem',
 }));
 
 function Results() {
@@ -83,6 +80,14 @@ function Results() {
       }
     }
   };
+    // Function to return severity level or default message
+    const getSeverity = (score) => {
+      if (score) {
+        // Assume calculateSeverity is a function that takes a score and returns a severity level
+        return calculateSeverityLevel(score);
+      }
+      return 'Please fill out the questionnaire';
+    }
 
   const depressionSeverity = calculateSeverityLevel(depressionScore, 'depression');
   const anxietySeverity = calculateSeverityLevel(anxietyScore, 'anxiety');
@@ -98,13 +103,13 @@ function Results() {
        <JournalButton />
 
       {/* Display the depression score and severity level */}
-      {depressionScore !== null ? (
+      {depressionScore !== undefined ? (
         <TranslucentPaper>
           <Typography variant="h4">
-            Depression Score: {depressionScore}
+          Depression Score: {depressionScore || 'Please fill out the questionnaire'}
           </Typography>
           <Typography variant="h5">
-            Severity Level: {depressionSeverity}
+          Severity Level: {getSeverity(depressionScore)}
           </Typography>
           <img
             src="https://assets-global.website-files.com/5d9f7106c12e74decfc27596/5fd93263e4938ca9ded6f92e_Screen%20Shot%202020-12-15%20at%204.59.38%20PM.png"
@@ -118,17 +123,17 @@ function Results() {
           </Typography>
         </TranslucentPaper>
       ) : (
-        <Typography variant="body1">Loading depression score...</Typography>
+        <Typography variant="body1">Please fill out the questionnaire</Typography>
       )}
 
       {/* Display the anxiety score and severity level */}
-      {anxietyScore !== null ? (
+      {anxietyScore !== undefined ? (
         <TranslucentPaper>
           <Typography variant="h4">
-            Anxiety Score: {anxietyScore}
+          Anxiety Score: {anxietyScore || 'Not Available'}
           </Typography>
           <Typography variant="h5">
-            Severity Level: {anxietySeverity}
+          Severity Level: {getSeverity(anxietyScore)}
           </Typography>
           <img
             src="https://assets-global.website-files.com/5d9f7106c12e74decfc27596/5fd948e276b1e9b87db88ff1_Screen%20Shot%202020-12-15%20at%206.30.00%20PM.png"
@@ -142,17 +147,17 @@ function Results() {
           </Typography>
         </TranslucentPaper>
       ) : (
-        <Typography variant="body1">Loading anxiety score...</Typography>
+        <Typography variant="body1">Please fill out the questionnaire</Typography>
       )}
 
       {/* Display the stress score and severity level */}
-      {stressScore !== null ? (
+      {stressScore !== undefined ? (
         <TranslucentPaper>
           <Typography variant="h4">
-            Stress Score: {stressScore}
+          Stress Score: {stressScore || 'Not Available'}
           </Typography>
           <Typography variant="h5">
-            Severity Level: {stressSeverity}
+          Severity Level: {getSeverity(stressScore)}
           </Typography>
           <img
             src="https://www.researchgate.net/profile/Suresh-Jandrajupalli-2/publication/331897356/figure/tbl1/AS:738518624112642@1553087969531/Perceived-Stress-Scale-PSS-Scores-and-Associated-Levels-of-Health-Concern.png"
@@ -166,7 +171,7 @@ function Results() {
           </Typography>
         </TranslucentPaper>
       ) : (
-        <Typography variant="body1">Loading stress score...</Typography>
+        <Typography variant="body1">Please fill out the questionnaire</Typography>
       )}
 
     </Container>
