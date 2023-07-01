@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
-import { Typography, Box, Paper } from '@mui/material';
+import { Typography, Box, Paper } from '@mui/material'
 import { styled } from '@mui/system';
+
 
 const Container = styled(Box)(({ theme }) => ({
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -11,21 +11,20 @@ const Container = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   textAlign: 'center',
-  marginTop: '2rem',
+  border: 'none',
+}));
+
+const TranslucentPaper = styled(Paper)(({ theme }) => ({
+  background: `linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)`,
+  padding: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+  textAlign: 'left',
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
   marginBottom: '2rem',
   fontSize: '2rem',
   fontWeight: 'bold',
-}));
-
-const StyledLink = styled(Link)(({ theme }) => ({
-  margin: '0.5rem',
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  color: 'black',
-  textDecoration: 'none',
 }));
 
 const Description = styled(Typography)(({ theme }) => ({
@@ -94,13 +93,13 @@ function Results() {
       <Title variant="h2">
         Personal Assessment Results
       </Title>
-      <StyledLink to="/profile">
-        View Profile
-      </StyledLink>
+
+       {/* Render the JournalButton component */}
+       <JournalButton />
 
       {/* Display the depression score and severity level */}
       {depressionScore !== null ? (
-        <Paper>
+        <TranslucentPaper>
           <Typography variant="h4">
             Depression Score: {depressionScore}
           </Typography>
@@ -117,14 +116,14 @@ function Results() {
             The tool rates the frequency of symptoms which factor into scoring, while question 9 screens for sucicide ideation.
             Typically self-administerd, can be done anywhere and only takes a few minutes.
           </Typography>
-        </Paper>
+        </TranslucentPaper>
       ) : (
         <Typography variant="body1">Loading depression score...</Typography>
       )}
 
       {/* Display the anxiety score and severity level */}
       {anxietyScore !== null ? (
-        <Paper>
+        <TranslucentPaper>
           <Typography variant="h4">
             Anxiety Score: {anxietyScore}
           </Typography>
@@ -141,14 +140,14 @@ function Results() {
             It can also be used to screen panic, social anxiety and PTSD. It was modeled after the PHQ for quick and effective care. Measurement is based more on care in order to help personalize the care and treatment decisions.
             Can be self administered, done anywhere, and only takes a few minutes.
           </Typography>
-        </Paper>
+        </TranslucentPaper>
       ) : (
         <Typography variant="body1">Loading anxiety score...</Typography>
       )}
 
       {/* Display the stress score and severity level */}
       {stressScore !== null ? (
-        <Paper>
+        <TranslucentPaper>
           <Typography variant="h4">
             Stress Score: {stressScore}
           </Typography>
@@ -165,13 +164,11 @@ function Results() {
             Some of the questions seem similiar, but each our different and should be treated as a new problem. The idea of the PSS is to consider what is happening in your life and their level of importance.
             Two individuals could have the same experiences and yet entirely different answers based on their personal perception of the events.
           </Typography>
-        </Paper>
+        </TranslucentPaper>
       ) : (
         <Typography variant="body1">Loading stress score...</Typography>
       )}
 
-      {/* Render the JournalButton component */}
-      <JournalButton />
     </Container>
   );
 }
