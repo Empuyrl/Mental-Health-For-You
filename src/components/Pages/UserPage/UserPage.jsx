@@ -62,9 +62,6 @@ const UserPage = () => {
       <WelcomeContainer>
         <WelcomeText variant="h2">Welcome, {user.username}!</WelcomeText>
         <StyledLink to="/profile">
-          <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-            View Profile
-          </Typography>
         </StyledLink>
       </WelcomeContainer>
       <QuizLinksContainer>

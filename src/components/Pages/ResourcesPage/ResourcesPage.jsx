@@ -6,7 +6,7 @@ import { Box, Typography,TextField, Button } from '@mui/material';
 import { styled } from '@mui/system';
 
 const Container = styled(Box)(({ theme }) => ({
-  background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://peelresearch.com/wp-content/uploads/2019/09/The-learning-brain.jpg')`,
+  background: `linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   minHeight: '100vh',
@@ -14,7 +14,7 @@ const Container = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  color: '#FFFF00',
+  color: 'black',
   padding: theme.spacing(2),
 }));
 
@@ -22,7 +22,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
   margin: theme.spacing(0.5),
   fontSize: '1.2rem',
   fontWeight: 'bold',
-  color: '#FFFF00',
+  color: '#000000',
   textDecoration: 'none',
 }));
 
@@ -82,49 +82,13 @@ const ResourcesPage = () => {
   return (
     <Container>
       <Typography variant="h1" sx={{ marginBottom: '2rem', fontSize: '2rem', fontWeight: 'bold' }}>
-        Supportive Resources for Mental Well-being
+      Your Mental Health Toolkit
       </Typography>
+      <JournalButton />
       <Typography variant="body1" sx={{ fontSize: '1.5rem', fontStyle: 'italic', textAlign: 'center', marginTop: '2rem' }}>
         "Mental health is not a destination, but a process. It's about how you drive, not where you're going."
       </Typography>
       <Box>
-        <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Suicide Prevention Resources</Typography>
-        <ul>
-          {suicideResources.map((resource) => (
-            <li key={resource.id}>
-              <a href={resource.resource_link} target="_blank" rel="noopener noreferrer" className="link">
-                {resource.resource_description}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Box>
-      <Box>
-        <StyledLink to="/resources?type=depression">
-          Depression Resources
-        </StyledLink>
-        <StyledLink to="/resources?type=anxiety">
-          Anxiety Resources
-        </StyledLink>
-        <StyledLink to="/resources?type=stress">
-          Stress Resources
-        </StyledLink>
-        {/* Add links for other subjects */}
-      </Box>
-      {getFilteredResources().map((resource) => (
-        <Box key={resource.id}>
-          <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold' }}>{resource.resource_type}</Typography>
-          <ul>
-            <li>
-              <a href={resource.resource_link} target="_blank" rel="noopener noreferrer" className="link">
-                {resource.resource_description}
-              </a>
-            </li>
-          </ul>
-        </Box>
-      ))}
-          <Box>
-      <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Add New Resource</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           name="resource_type"
@@ -147,12 +111,47 @@ const ResourcesPage = () => {
           onChange={handleInputChange}
           required
         />
-        <Button type="submit" variant="contained" color="primary">
+       <Button type="submit" variant="contained" color="primary" sx={{ '&:hover': { backgroundColor: 'green' } }}>
           Add Resource
         </Button>
       </form>
     </Box>
-      <JournalButton />
+    <Box>
+        <StyledLink to="/resources?type=depression">
+          Depression Resources
+        </StyledLink>
+        <StyledLink to="/resources?type=anxiety">
+          Anxiety Resources
+        </StyledLink>
+        <StyledLink to="/resources?type=stress">
+          Stress Resources
+        </StyledLink>
+        {/* Add links for other subjects */}
+      </Box>
+          {getFilteredResources().map((resource) => (
+        <Box key={resource.id}>
+          <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold' }}>{resource.resource_type}</Typography>
+          <ul>
+            <li>
+              <a href={resource.resource_link} target="_blank" rel="noopener noreferrer" className="link">
+                {resource.resource_description}
+              </a>
+            </li>
+          </ul>
+        </Box>
+      ))}
+      <Box>
+        <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold',  marginTop: '5rem' }}>Suicide Prevention Resources</Typography>
+        <ul>
+          {suicideResources.map((resource) => (
+            <li key={resource.id}>
+              <a href={resource.resource_link} target="_blank" rel="noopener noreferrer" className="link">
+                {resource.resource_description}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Box>
     </Container>
   );
 };

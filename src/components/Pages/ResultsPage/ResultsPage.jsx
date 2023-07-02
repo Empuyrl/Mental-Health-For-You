@@ -13,6 +13,8 @@ const Container = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   border: 'none',
+  justifyContent: 'center',
+  textAlign: 'center', 
 }));
 
 const TranslucentPaper = styled(Paper)(({ theme }) => ({
