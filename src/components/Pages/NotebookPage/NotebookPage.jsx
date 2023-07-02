@@ -7,6 +7,7 @@ import { Container, Box, Typography, Table, TableBody, TableCell, TableContainer
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/system';
+import Swal from 'sweetalert2';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   minHeight: '100vh',
@@ -51,12 +52,34 @@ const NotebookPage = () => {
   };
 
   const handleDeleteClick = (entry) => {
-    if (window.confirm('Are you sure you want to delete this entry?')) {
-      dispatch({
-        type: 'DELETE_JOURNAL_ENTRY',
-        payload: entry.id,
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this entry!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#d33',  // blue color
+      cancelButtonColor: '#3085d6',  // red color
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({
+          type: 'DELETE_JOURNAL_ENTRY',
+          payload: entry.id,
+        });
+        Swal.fire(
+          'Deleted!',
+          'Your entry has been deleted.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your entry is safe :)',
+          'error'
+        )
+      }
+    })
   };
 
   const combinedEntries = entries.slice().reverse();
