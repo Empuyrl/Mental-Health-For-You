@@ -209,32 +209,86 @@ const ResourcesPage = () => {
   const additionalLinks = {
     depression: [
       {
-        title: 'Depression, Anxiety, Stress Test',
-        link: 'https://www.depression-anxiety-stress-test.org/take-the-test.html'
+        title: 'Depression - Mayo Clinic',
+        link: 'https://www.mayoclinic.org/diseases-conditions/depression/symptoms-causes/syc-20356007',
+        description: 'Learn about symptoms and causes of depression from Mayo Clinic.',
       },
       {
-        title: 'Depression Screening Test',
-        link: 'https://screening.mhanational.org/screening-tools/depression/'
+        title: 'Depression - National Institute of Mental Health',
+        link: 'https://www.nimh.nih.gov/health/topics/depression/index.shtml',
+        description: 'Comprehensive information about depression from the National Institute of Mental Health.',
       },
       {
-        title: 'What is Depression?',
-        link: 'https://www.psychiatry.org/patients-families/depression/what-is-depression'
+        title: 'Depression - Cleveland Clinic',
+        link: 'https://my.clevelandclinic.org/health/diseases/9290-depression',
+        description: 'Overview of depression and available treatment options from the Cleveland Clinic.',
+      },
+      {
+        title: 'Depression - National Institute of Mental Health',
+        link: 'https://www.nimh.nih.gov/health/topics/depression',
+        description: 'Comprehensive information about depression from the National Institute of Mental Health.',
+      },
+      {
+        title: 'Mental Health by the Numbers - NAMI',
+        link: 'https://www.nami.org/mhstats',
+        description: 'Statistics and facts about mental health, including depression, from the National Alliance on Mental Illness.',
       },
     ],
     anxiety: [
       {
-        title: 'Anxiety: Symptoms and Causes',
-        link: 'https://www.mayoclinic.org/diseases-conditions/anxiety/symptoms-causes/syc-20350961'
+        title: 'Anxiety - Mayo Clinic',
+        link: 'https://www.mayoclinic.org/diseases-conditions/anxiety/symptoms-causes/syc-20350961',
+        description: 'Explore symptoms and causes of anxiety according to Mayo Clinic.',
+      },
+      {
+        title: 'Anxiety Disorders - National Institute of Mental Health',
+        link: 'https://www.nimh.nih.gov/health/topics/anxiety-disorders/index.shtml',
+        description: 'Comprehensive information about anxiety disorders from the National Institute of Mental Health.',
+      },
+      {
+        title: 'Anxiety - Cleveland Clinic',
+        link: 'https://my.clevelandclinic.org/health/diseases/9536-anxiety-disorders',
+        description: 'Overview of anxiety disorders and available treatment options from the Cleveland Clinic.',
+      },
+      {
+        title: 'Anxiety - MedlinePlus',
+        link: 'https://medlineplus.gov/anxiety.html',
+        description: 'Information about anxiety from MedlinePlus, a trusted source of health information.',
+      },
+      {
+        title: 'Improving Mental Health - MedlinePlus',
+        link: 'https://medlineplus.gov/howtoimprovementalhealth.html',
+        description: 'Tips and resources for improving mental health from MedlinePlus.',
       },
     ],
     stress: [
       {
-        title: 'Stress',
-        link: 'https://my.clevelandclinic.org/health/articles/11874-stress'
+        title: 'Stress - Mayo Clinic',
+        link: 'https://www.mayoclinic.org/healthy-lifestyle/stress-management/basics/stress-basics/hlv-20049495',
+        description: 'Get basic information about stress management from Mayo Clinic.',
       },
-    ]
+      {
+        title: 'Stress - Cleveland Clinic',
+        link: 'https://my.clevelandclinic.org/health/articles/11874-stress',
+        description: 'Information about stress and its impact from the Cleveland Clinic.',
+      },
+      {
+        title: 'Perceived Stress Scale (PSS)',
+        link: 'https://www.das.nh.gov/wellness/Docs%5CPercieved%20Stress%20Scale.pdf',
+        description: 'Download the Perceived Stress Scale for assessing stress levels.',
+      },
+      {
+        title: 'Stress Management - American Heart Association',
+        link: 'https://www.heart.org/en/healthy-living/healthy-lifestyle/stress-management',
+        description: 'Learn about stress management techniques and strategies from the American Heart Association.',
+      },
+      {
+        title: 'Mental Illness - Statistics - National Institute of Mental Health',
+        link: 'https://www.nimh.nih.gov/health/statistics/mental-illness',
+        description: 'Explore statistics related to mental illness, including stress, from the National Institute of Mental Health.',
+      },
+    ],
   };
-
   const renderAdditionalLinks = (category) => {
     return (
       <Box>
