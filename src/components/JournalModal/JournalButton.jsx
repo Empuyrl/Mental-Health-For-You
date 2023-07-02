@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import JournalModal from './JournalModal';
 import { IconButton } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 const JournalButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +22,7 @@ const JournalButton = () => {
         <JournalModal setIsModalOpen={setIsModalOpen} />
       ) : (
         <IconButton color="primary" onClick={handleOpenModal}>
-          <AddCircleIcon fontSize="large" />
+          < LibraryBooksIcon  fontSize="large" />
         </IconButton>
       )}
     </div>

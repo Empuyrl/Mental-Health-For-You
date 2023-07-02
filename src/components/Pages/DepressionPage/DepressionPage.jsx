@@ -27,35 +27,35 @@ const DepressionPage = () => {
   const history = useHistory();
 
 
-    let old_Value1 = 1;
-    let old_Value2 = 2;
-    let old_Value3 = 3;
-    let old_Value4 = 4;
-    let old_Value5 = 5;
-    let old_Value6 = 6;
-    let old_Value7 = 7;
-    let old_Value8 = 8;
-    let old_Value9 = 9;
-   
-    let value1 = Number(old_Value1);
-    let value2 = Number(old_Value2);
-    let value3 = Number(old_Value3);
-    let value4 = Number(old_Value4);
-    let value5 = Number(old_Value5);
-    let value6 = Number(old_Value6);
-    let value7 = Number(old_Value7);
-    let value8 = Number(old_Value8);
-    let value9 = Number(old_Value9);
-    //  LOG  [1, 2, 3, 4]
-    const valueArray = [value1, value2, value3, value4, value5, value6, value7, value8, value9];
-    // allFunctions.addScore(valueArray);
+  let old_Value1 = 1;
+  let old_Value2 = 2;
+  let old_Value3 = 3;
+  let old_Value4 = 4;
+  let old_Value5 = 5;
+  let old_Value6 = 6;
+  let old_Value7 = 7;
+  let old_Value8 = 8;
+  let old_Value9 = 9;
+
+  let value1 = Number(old_Value1);
+  let value2 = Number(old_Value2);
+  let value3 = Number(old_Value3);
+  let value4 = Number(old_Value4);
+  let value5 = Number(old_Value5);
+  let value6 = Number(old_Value6);
+  let value7 = Number(old_Value7);
+  let value8 = Number(old_Value8);
+  let value9 = Number(old_Value9);
+  //  LOG  [1, 2, 3, 4]
+  const valueArray = [value1, value2, value3, value4, value5, value6, value7, value8, value9];
+  // allFunctions.addScore(valueArray);
 
 
   const handleAnswerChange = (index, value) => {
     console.log(`handleAnswerChange called with index: ${index} and value: ${value}`);
     const updatedAnswers = [...answers];
     //problem seems to be the math isn't actually being added
-    console.log(updatedAnswers); 
+    console.log(updatedAnswers);
     updatedAnswers[index] = parseInt(value);
     setAnswers(updatedAnswers);
   };
@@ -90,11 +90,11 @@ const DepressionPage = () => {
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
 
     dispatch({ type: 'SUBMIT_DEPRESSION_RESPONSE', payload: payload });
-    
+
     history.push('/results');
   };
 
-  
+
   const questions = [
     "Little interest or pleasure in doing things:",
     "Feeling down, depressed, or hopeless:",
@@ -124,6 +124,7 @@ const DepressionPage = () => {
         <StyledPaper>
           <Typography variant="h4" sx={{ mb: 2 }}>
             Patient Depression Questionnaire PHQ-9
+            <JournalButton />
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
@@ -152,12 +153,19 @@ const DepressionPage = () => {
             ))}
             <Box sx={{ mb: 2 }}>
               <Typography>Score Message: {scoreMessage}</Typography>
-              <Button type="submit" variant="contained" color="secondary">
+              <Button type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: '#007BFF', // Blue color
+                  '&:hover': {
+                    backgroundColor: '#28a745', // Green color
+                  }
+                }}
+              >
                 Submit
               </Button>
             </Box>
           </form>
-          <JournalButton />
           <Box>
             {/* Make sure to handle the case where depressionResults is undefined */}
           </Box>
@@ -165,6 +173,6 @@ const DepressionPage = () => {
       </Container>
     </Box>
   );
-  }
+}
 
 export default DepressionPage;

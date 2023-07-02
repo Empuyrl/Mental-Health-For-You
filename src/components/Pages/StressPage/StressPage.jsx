@@ -26,28 +26,28 @@ function StressPage() {
 
 
   let old_Value1 = 1;
-    let old_Value2 = 2;
-    let old_Value3 = 3;
-    let old_Value4 = 4;
-    let old_Value5 = 5;
-    let old_Value6 = 6;
-    let old_Value7 = 7;
-    let old_Value8 = 8;
-    let old_Value9 = 9;
-    let old_Value10 = 10;
+  let old_Value2 = 2;
+  let old_Value3 = 3;
+  let old_Value4 = 4;
+  let old_Value5 = 5;
+  let old_Value6 = 6;
+  let old_Value7 = 7;
+  let old_Value8 = 8;
+  let old_Value9 = 9;
+  let old_Value10 = 10;
 
-    let value1 = Number(old_Value1);
-    let value2 = Number(old_Value2);
-    let value3 = Number(old_Value3);
-    let value4 = Number(old_Value4);
-    let value5 = Number(old_Value5);
-    let value6 = Number(old_Value6);
-    let value7 = Number(old_Value7);
-    let value8 = Number(old_Value8);
-    let value9 = Number(old_Value9);
-    let value10 = Number(old_Value10);
-  
-    const valueArray = [value1, value2, value3, value4, value5, value6, value7, value8, value9, value10];
+  let value1 = Number(old_Value1);
+  let value2 = Number(old_Value2);
+  let value3 = Number(old_Value3);
+  let value4 = Number(old_Value4);
+  let value5 = Number(old_Value5);
+  let value6 = Number(old_Value6);
+  let value7 = Number(old_Value7);
+  let value8 = Number(old_Value8);
+  let value9 = Number(old_Value9);
+  let value10 = Number(old_Value10);
+
+  const valueArray = [value1, value2, value3, value4, value5, value6, value7, value8, value9, value10];
   // const newValue = (number1 + number2 + number3 + number4 + number5 + number6 + number7 + number8 + number9)
   // console.log('newValue', typeof newValue,newValue)
 
@@ -98,7 +98,7 @@ function StressPage() {
 
     history.push('/results');
   };
-  
+
   const questions = [
     "Over the last month, how often have you been upset because of something that happened unexpectedly and out of your control?",
     "In the last month, how often have you felt that you were unable to control the important things in your life?",
@@ -111,7 +111,7 @@ function StressPage() {
     "In the last month, how often have you been angered because of things that happened that were outside of your control?",
     "In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?"
   ];
-  
+
   return (
     <Box
       sx={{
@@ -129,6 +129,7 @@ function StressPage() {
         <StyledPaper>
           <Typography variant="h4" sx={{ mb: 2 }}>
             Perceived Stress Scale Questionnaire PSS
+            <JournalButton />
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
@@ -155,12 +156,19 @@ function StressPage() {
             ))}
             <Box sx={{ mb: 2 }}>
               <Typography>Score Message: {scoreMessage}</Typography>
-              <Button type="submit" variant="contained" color="secondary">
+              <Button type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: '#007BFF', // Blue color
+                  '&:hover': {
+                    backgroundColor: '#28a745', // Green color
+                  }
+                }}
+              >
                 Submit
               </Button>
             </Box>
           </form>
-          <JournalButton />
           <Box>{/* Make sure to handle the case where stressResults is undefined */}</Box>
         </StyledPaper>
       </Container>

@@ -78,7 +78,7 @@ function AnxietyPage() {
       scoreMessage: scoreMessage,
     };
     console.log(`Dispatching payload: ${JSON.stringify(payload)}`);
-    dispatch({ type: 'SUBMIT_ANXIETY_RESPONSE', payload: payload  });
+    dispatch({ type: 'SUBMIT_ANXIETY_RESPONSE', payload: payload });
     history.push('/results');
   };
 
@@ -109,6 +109,7 @@ function AnxietyPage() {
         <StyledPaper>
           <Typography variant="h4" sx={{ mb: 2 }}>
             General Anxiety Questionnaire GAD-7
+            <JournalButton />
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
@@ -125,32 +126,38 @@ function AnxietyPage() {
                 <Grid container spacing={2}>
                   {[...Array(4)].map((_, value) => (
                     <Grid item xs>
-                    <FormControlLabel
-                      key={value}
-                      control={<Radio />}
-                      label={`${value} - ${[
-                        'Not at all',
-                        'Several days',
-                        'More than half the days',
-                        'Nearly every day',
-                      ][value]}`}
-                      checked={answers[index] === value}
-                      onClick={() => handleAnswerChange(index, value)}
-                      sx={{ flex: 1 }}
-                    />
+                      <FormControlLabel
+                        key={value}
+                        control={<Radio />}
+                        label={`${value} - ${[
+                          'Not at all',
+                          'Several days',
+                          'More than half the days',
+                          'Nearly every day',
+                        ][value]}`}
+                        checked={answers[index] === value}
+                        onClick={() => handleAnswerChange(index, value)}
+                        sx={{ flex: 1 }}
+                      />
                     </Grid>
                   ))}
-                  </Grid>
+                </Grid>
               </Box>
             ))}
             <Box sx={{ mb: 2 }}>
               <Typography>Score Message: {scoreMessage}</Typography>
-              <Button type="submit" variant="contained" color="secondary">
-                Submit
+              <Button type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: '#007BFF', // Blue color
+                  '&:hover': {
+                    backgroundColor: '#28a745', // Green color
+                  }
+                }}
+              >
               </Button>
             </Box>
           </form>
-          <JournalButton />
           <Box>
             {/* Make sure to handle the case where anxietyResults is undefined */}
           </Box>
