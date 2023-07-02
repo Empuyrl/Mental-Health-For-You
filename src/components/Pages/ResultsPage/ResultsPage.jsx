@@ -21,7 +21,10 @@ const TranslucentPaper = styled(Paper)(({ theme }) => ({
   background: `linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)`,
   padding: theme.spacing(2),
   marginBottom: theme.spacing(2),
-  textAlign: 'left',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center', 
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -83,10 +86,10 @@ function Results() {
     }
   };
     // Function to return severity level or default message
-    const getSeverity = (score) => {
+    const getSeverity = (score, type) => {
       if (score) {
         // Assume calculateSeverity is a function that takes a score and returns a severity level
-        return calculateSeverityLevel(score);
+        return calculateSeverityLevel(score, type);
       }
       return 'Please fill out the questionnaire';
     }
@@ -111,7 +114,7 @@ function Results() {
           Depression Score: {depressionScore || 'Please fill out the questionnaire'}
           </Typography>
           <Typography variant="h5">
-          Severity Level: {getSeverity(depressionScore)}
+          Severity Level: {getSeverity(depressionScore, 'depression')}
           </Typography>
           <img
             src="https://assets-global.website-files.com/5d9f7106c12e74decfc27596/5fd93263e4938ca9ded6f92e_Screen%20Shot%202020-12-15%20at%204.59.38%20PM.png"
@@ -135,7 +138,7 @@ function Results() {
           Anxiety Score: {anxietyScore || 'Not Available'}
           </Typography>
           <Typography variant="h5">
-          Severity Level: {getSeverity(anxietyScore)}
+          Severity Level: {getSeverity(anxietyScore, 'anxiety')}
           </Typography>
           <img
             src="https://assets-global.website-files.com/5d9f7106c12e74decfc27596/5fd948e276b1e9b87db88ff1_Screen%20Shot%202020-12-15%20at%206.30.00%20PM.png"
@@ -159,12 +162,12 @@ function Results() {
           Stress Score: {stressScore || 'Not Available'}
           </Typography>
           <Typography variant="h5">
-          Severity Level: {getSeverity(stressScore)}
+          Severity Level: {getSeverity(stressScore, 'stress')}
           </Typography>
           <img
             src="https://www.researchgate.net/profile/Suresh-Jandrajupalli-2/publication/331897356/figure/tbl1/AS:738518624112642@1553087969531/Perceived-Stress-Scale-PSS-Scores-and-Associated-Levels-of-Health-Concern.png"
             alt="Stress Scoring System"
-            style={{ width: '100%', maxWidth: '500px', margin: '1rem 0' }}
+            style={{ width: '100%', maxWidth: '500px', display: 'block', margin: '1rem auto' }}
           />
           <Typography variant="body1">
             The Percieved Stress Scale(PSS) is a classic stress assessment instrument, was developed in 1983 and remains and is used to help us understand how different situations affect our feelings and our perceived stress.
