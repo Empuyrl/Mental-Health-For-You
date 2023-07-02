@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import JournalButton from '../../JournalModal/JournalButton';
 import { Box, Typography, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
@@ -135,6 +134,47 @@ const ResourcesPage = () => {
 
   const suicideResources = resources.filter((resource) => resource.resource_type === 'suicide');
 
+  const additionalLinks = {
+    depression: [
+      {
+        title: 'Personality Profile Categories: Introversion/Extraversion, Sensing/Intuition, Thinking/Feeling, Judging/Perceiving',
+        link: 'https://www.16personalities.com/free-personality-test'
+      },
+      {
+        title: 'Big 5 Personality Traits: Conscientiousness, Agreeableness, Neuroticism, Openness, and Extroversion',
+        link: 'https://examples.yourdictionary.com/examples-of-personality-traits.html'
+      }
+    ],
+    anxiety: [
+      {
+        title: 'Enneagram',
+        link: 'https://www.truity.com/test/enneagram-personality-test'
+      }
+    ],
+    stress: [
+      {
+        title: 'Finding Power in Vulnerability',
+        link: 'https://www.ted.com/talks/brene_brown_the_power_of_vulnerability'
+      },
+      {
+        title: 'Listening to Shame',
+        link: 'https://www.ted.com/talks/brene_brown_listening_to_shame'
+      }
+    ]
+  };
+
+  const renderAdditionalLinks = (category) => {
+    return (
+      <Box>
+        {additionalLinks[category].map((link, index) => (
+          <Typography key={index} variant="body1">
+             <a href={link.link} target="_blank" rel="noopener noreferrer">{link.title}</a>
+          </Typography>
+        ))}
+      </Box>
+    );
+  };
+
   return (
     <Container>
       <Typography variant="h1" sx={{ marginBottom: '2rem', fontSize: '2rem', fontWeight: 'bold' }}>
@@ -177,16 +217,19 @@ const ResourcesPage = () => {
           Depression
         </StyledButton>
         {openTables['depression'] && createResourceTable('depression')}
-
+        {renderAdditionalLinks('depression')}
+        
         <StyledButton onClick={() => toggleTable('anxiety')}>
           Anxiety
         </StyledButton>
         {openTables['anxiety'] && createResourceTable('anxiety')}
-
+        {renderAdditionalLinks('anxiety')}
+        
         <StyledButton onClick={() => toggleTable('stress')}>
           Stress
         </StyledButton>
         {openTables['stress'] && createResourceTable('stress')}
+        {renderAdditionalLinks('stress')}
       </Box>
       <Box>
         <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold', marginTop: '5rem' }}>Suicide Prevention Resources</Typography>

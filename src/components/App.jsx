@@ -157,7 +157,7 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
+        <Footer className="footer"/>
       </div>
     </Router>
   );
