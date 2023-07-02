@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Select, MenuItem, FormControl, InputLabel, IconButton } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
-
-const categories = ["Depression", "Stress", "Anxiety", "General"]; 
+const categories = ["Depression", "Stress", "Anxiety", "General"];
 
 const JournalModal = ({ setIsModalOpen }) => {
   const dispatch = useDispatch();
@@ -23,7 +22,13 @@ const JournalModal = ({ setIsModalOpen }) => {
   };
 
   return (
-    <Dialog open={setIsModalOpen} onClose={() => setIsModalOpen(false)} maxWidth="md" fullWidth>
+    <Dialog
+      open={setIsModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      maxWidth="md"
+      fullWidth
+      PaperProps={{ style: { backgroundColor: 'lightpink' } }} // Set the background color here
+    >
       <DialogTitle>Journal Entry</DialogTitle>
       <DialogContent>
         <FormControl fullWidth margin="normal">
