@@ -42,6 +42,9 @@ function AboutPage() {
       >
         About Mind Matters
         <JournalButton />
+        <Typography variant="body1" align="center" fontWeight="bold">
+          As the creator of Mind Matters, I bring my own experiences with mental health to this project. I have seen firsthand the transformative power of support and understanding, and how crucial it is to have resources at your fingertips. I believe in the power of connection, empathy, and compassion in fostering mental well-being.
+        </Typography>
       </Typography>
       <Paper elevation={3} sx={{ padding: '1.5rem', marginBottom: '1rem' }}>
         <Typography variant="body1" align="center" fontWeight="bold">
@@ -61,6 +64,45 @@ function AboutPage() {
         </Typography>
         <Typography variant="body1" align="center" fontWeight="bold">
           Thank you for joining us on this journey towards mental well-being. Remember, seeking help and support is a sign of strength, and together, we can create a positive impact on the mental health of individuals worldwide.
+        </Typography>
+      </Paper>
+
+      <Paper elevation={3} sx={{ padding: '1.5rem', marginBottom: '1rem' }}>
+      <Typography variant="body1" align="center" fontWeight="bold" sx={{ marginBottom: '2rem' }}>
+          This project wouldn't have been possible without the power of technology. The technologies and libraries used in this project are:
+        </Typography>
+        <Typography variant="body1" align="center" fontWeight="bold">
+          - React: A JavaScript library for building user interfaces
+          <br/>
+          - Redux: A predictable state container for JavaScript apps
+          <br/>
+          - Redux-Saga: An alternative side effect model for Redux apps
+          <br/>
+          - React-Redux: Official React bindings for Redux
+          <br/>
+          - Material UI: A popular React UI framework
+          <br/>
+          - Express: A fast, unopinionated, minimalist web framework for Node.js
+          <br/>
+          - Node.js: A JavaScript runtime built on Chrome's V8 JavaScript engine
+          <br/>
+          - Passport.js: An authentication middleware for Node.js
+          <br/>
+          - PG: Non-blocking PostgreSQL client for Node.js
+          <br/>
+          - Axios: Promise-based HTTP client for the browser and node.js
+          <br/>
+          - React Router DOM: DOM bindings for React Router
+          <br/>
+          - JavaScript: The programming language of HTML and the Web
+          <br/>
+          - Nodemon: A tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected
+          <br/>
+          - Dotenv: Module that loads environment variables from a .env file into process.env
+          <br/>
+          - Bcryptjs: A library to help you hash passwords
+          <br/>
+          - CSS: A stylesheet language used for describing the look and formatting of a document written in HTML
         </Typography>
       </Paper>
     </Box>
