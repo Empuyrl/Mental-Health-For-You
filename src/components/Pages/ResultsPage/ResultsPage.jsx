@@ -89,11 +89,16 @@ function Results() {
     // Function to return severity level or default message
     const getSeverity = (score, type) => {
       if (score) {
-        // Assume calculateSeverity is a function that takes a score and returns a severity level
-        return calculateSeverityLevel(score, type);
+        const severity = calculateSeverityLevel(score, type);
+        let disclaimer = '';
+        if (['Severe depression', 'Severe anxiety', 'High perceived stress'].includes(severity)) {
+          disclaimer = ' - Your score indicates a high level of ' + type + '. Please consult with a healthcare professional immediately.';
+        }
+        return severity + disclaimer;
       }
       return 'Please fill out the questionnaire';
-    }
+    };
+    
 
   const depressionSeverity = calculateSeverityLevel(depressionScore, 'depression');
   const anxietySeverity = calculateSeverityLevel(anxietyScore, 'anxiety');
