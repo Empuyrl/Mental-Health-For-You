@@ -60,9 +60,8 @@ const UserPage = () => {
   return (
     <Container>
       <WelcomeContainer>
-        <WelcomeText variant="h2">Welcome, {user.username}!</WelcomeText>
-        <StyledLink to="/profile">
-        </StyledLink>
+        <WelcomeText variant="h2">"You don't have to control your thoughts. You just have to stop letting them control you."</WelcomeText>
+        <JournalButton />
       </WelcomeContainer>
       <QuizLinksContainer>
         <StyledLink to="/depression">
@@ -81,7 +80,6 @@ const UserPage = () => {
           <Typography variant="p">An almost universal experience affecting mental and physical health, stress can stem from various life events. While often seen as inevitable, managing stress through self-care, mindfulness, and relaxation techniques can significantly improve your quality of life.</Typography>
         </StyledLink>
       </QuizLinksContainer>
-      <JournalButton />
       <LogOutButton className="btn" />
     </Container>
   );
