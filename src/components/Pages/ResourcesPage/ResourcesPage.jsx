@@ -37,12 +37,12 @@ const StyledTableContainer = styled(TableContainer)({
 });
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  backgroundColor: 'lightpink',  // light pink
+  backgroundColor: 'lightpink', // Change the background color to light pink
   '&:last-child': {
-    backgroundColor: 'lightpink',  // light pink
+    backgroundColor: 'lightpink', // Keep the same background color for the last child
     '& .MuiIconButton-root': {
-      backgroundColor: 'lightpink', // light pink
-    }
+      backgroundColor: 'lightpink', // Keep the same background color for the icon button
+    },
   },
 }));
 
@@ -178,7 +178,7 @@ const ResourcesPage = () => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <StyledTableCell>{resourceType} Resources</StyledTableCell>
+              <StyledTableCell>New Resources</StyledTableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>

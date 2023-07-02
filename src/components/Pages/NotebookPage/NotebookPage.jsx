@@ -91,7 +91,7 @@ const NotebookPage = () => {
       if (result.isConfirmed) {
         dispatch({
           type: 'UPDATE_JOURNAL_ENTRY',
-          payload: { id: entry.id, entry_text: result.value },
+          payload: { id: entry.id, entry_text: result.value, category: entry.category },
         });
         Swal.fire('Updated!', 'Your entry has been updated.', 'success');
       } else if (result.dismiss === Swal.DismissReason.cancel) {
