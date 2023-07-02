@@ -36,8 +36,18 @@ function LandingPage() {
         <Typography variant="h5" mb={4} textAlign="center" color="text.primary">
           With Mind Matters, you can engage in self-assessment quizzes for emotional well-being, maintain a reflective journal, and discover resources for professional mental health assistance.
         </Typography>
-        <Typography variant="h4" fontWeight="bold" textAlign="center" color="text.primary">Begin Your Journey To Wellness</Typography>
-        <Box sx={{backgroundColor: 'white', borderRadius: '12px', p: 3, my: 4}}>
+        <Box
+          sx={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            p: 3,
+            mt: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <RegisterForm />
           <Typography variant="h5" textAlign="center" color="text.primary">Already embarked on your journey?</Typography>
           <Button 
@@ -47,7 +57,7 @@ function LandingPage() {
               width: '100%',
               backgroundColor: '#blue', // Normal color
               '&:hover': {
-                backgroundColor:   '#00f46a', // Hover color
+                backgroundColor: '#00f46a', // Hover color
               }
             }} 
             variant="contained" 

@@ -29,8 +29,7 @@ const WelcomeText = styled(Typography)(({ theme }) => ({
 
 const QuizLinksContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-evenly',
-  alignItems: 'center',
+  justifyContent: 'center', // Center the items horizontally
   flexWrap: 'wrap',
   marginTop: theme.spacing(4),
   '& > *': {
@@ -48,10 +47,16 @@ const QuizLinksContainer = styled(Box)(({ theme }) => ({
     },
   },
 }));
-
 const StyledLink = styled(Link)(({ theme }) => ({
   color: 'inherit',
   textDecoration: 'none',
+}));
+
+const StyledImage = styled('img')(({ theme }) => ({
+  width: '100%',
+  height: '200px', // Adjust the height as desired
+  objectFit: 'cover',
+  borderRadius: '8px',
 }));
 
 const UserPage = () => {
@@ -65,17 +70,17 @@ const UserPage = () => {
       </WelcomeContainer>
       <QuizLinksContainer>
         <StyledLink to="/depression">
-          <img src="https://img.freepik.com/free-vector/depression-concept-illustration_114360-3747.jpg" alt="Depression" />
+          <StyledImage src="https://img.freepik.com/free-vector/depression-concept-illustration_114360-3747.jpg" alt="Depression" />
           <Typography variant="h4">Depression Assessment</Typography>
           <Typography variant="p">A prevalent mental health disorder causing persistent sadness and loss of interest, depression affects nearly 264 million people globally. Remember, it's okay to not be okay; seeking professional help is a sign of strength, not weakness.</Typography>
         </StyledLink>
         <StyledLink to="/anxiety">
-          <img src="https://images.everydayhealth.com/images/how-to-cope-with-anxiety-and-depression-722x406.jpg" alt="Anxiety" />
+          <StyledImage src="https://images.everydayhealth.com/images/how-to-cope-with-anxiety-and-depression-722x406.jpg" alt="Anxiety" />
           <Typography variant="h4">Anxiety Assessment</Typography>
           <Typography variant="p">An umbrella term for disorders characterized by excessive worrying and fear, anxiety impacts 284 million individuals worldwide. It's not just "being nervous" — it's a legitimate struggle, and each small step towards managing it is a victory.</Typography>
         </StyledLink>
         <StyledLink to="/stress">
-          <img src="https://www.cedars-sinai.org/content/dam/cedars-sinai/blog/2019/07/common-physical-symptoms-of-hidden-stress.jpg" alt="Stress" />
+          <StyledImage src="https://www.cedars-sinai.org/content/dam/cedars-sinai/blog/2019/07/common-physical-symptoms-of-hidden-stress.jpg" alt="Stress" />
           <Typography variant="h4">Stress Assessment</Typography>
           <Typography variant="p">An almost universal experience affecting mental and physical health, stress can stem from various life events. While often seen as inevitable, managing stress through self-care, mindfulness, and relaxation techniques can significantly improve your quality of life.</Typography>
         </StyledLink>
