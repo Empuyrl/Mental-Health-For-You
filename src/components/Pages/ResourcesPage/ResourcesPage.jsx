@@ -17,6 +17,7 @@ const Container = styled(Box)(({ theme }) => ({
   justifyContent: 'flex-start',
   color: 'black',
   padding: theme.spacing(2),
+  paddingBottom: '60px',
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -50,7 +51,8 @@ const ResourcesPage = () => {
   const [openTables, setOpenTables] = useState({
     depression: false,
     anxiety: false,
-    stress: false
+    stress: false,
+    suicide: true // Initially open the suicide prevention resources section
   });
 
   const handleInputChange = (event) => {
@@ -101,7 +103,6 @@ const ResourcesPage = () => {
 
     const filteredResources = resources.filter((resource) => resource.resource_type === resourceType);
 
-
     return (
       <StyledTableContainer component={Paper}>
         <Table stickyHeader>
@@ -134,32 +135,33 @@ const ResourcesPage = () => {
 
   const suicideResources = resources.filter((resource) => resource.resource_type === 'suicide');
 
+  
   const additionalLinks = {
     depression: [
       {
-        title: 'Personality Profile Categories: Introversion/Extraversion, Sensing/Intuition, Thinking/Feeling, Judging/Perceiving',
-        link: 'https://www.16personalities.com/free-personality-test'
+        title: 'Depression, Anxiety, Stress Test',
+        link: 'https://www.depression-anxiety-stress-test.org/take-the-test.html'
       },
       {
-        title: 'Big 5 Personality Traits: Conscientiousness, Agreeableness, Neuroticism, Openness, and Extroversion',
-        link: 'https://examples.yourdictionary.com/examples-of-personality-traits.html'
-      }
+        title: 'Depression Screening Test',
+        link: 'https://screening.mhanational.org/screening-tools/depression/'
+      },
+      {
+        title: 'What is Depression?',
+        link: 'https://www.psychiatry.org/patients-families/depression/what-is-depression'
+      },
     ],
     anxiety: [
       {
-        title: 'Enneagram',
-        link: 'https://www.truity.com/test/enneagram-personality-test'
-      }
+        title: 'Anxiety: Symptoms and Causes',
+        link: 'https://www.mayoclinic.org/diseases-conditions/anxiety/symptoms-causes/syc-20350961'
+      },
     ],
     stress: [
       {
-        title: 'Finding Power in Vulnerability',
-        link: 'https://www.ted.com/talks/brene_brown_the_power_of_vulnerability'
+        title: 'Stress',
+        link: 'https://my.clevelandclinic.org/health/articles/11874-stress'
       },
-      {
-        title: 'Listening to Shame',
-        link: 'https://www.ted.com/talks/brene_brown_listening_to_shame'
-      }
     ]
   };
 
@@ -168,7 +170,7 @@ const ResourcesPage = () => {
       <Box>
         {additionalLinks[category].map((link, index) => (
           <Typography key={index} variant="body1">
-             <a href={link.link} target="_blank" rel="noopener noreferrer">{link.title}</a>
+            <a href={link.link} target="_blank" rel="noopener noreferrer">{link.title}</a>
           </Typography>
         ))}
       </Box>
@@ -218,32 +220,33 @@ const ResourcesPage = () => {
         </StyledButton>
         {openTables['depression'] && createResourceTable('depression')}
         {renderAdditionalLinks('depression')}
-        
+
         <StyledButton onClick={() => toggleTable('anxiety')}>
           Anxiety
         </StyledButton>
         {openTables['anxiety'] && createResourceTable('anxiety')}
         {renderAdditionalLinks('anxiety')}
-        
+
         <StyledButton onClick={() => toggleTable('stress')}>
           Stress
         </StyledButton>
         {openTables['stress'] && createResourceTable('stress')}
         {renderAdditionalLinks('stress')}
-      </Box>
-      <Box>
-        <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold', marginTop: '5rem' }}>Suicide Prevention Resources</Typography>
-        <ul>
-          {suicideResources.map((resource) => (
-            <li key={resource.id}>
-              <a href={resource.resource_link} target="_blank" rel="noopener noreferrer" className="link">
-                {resource.resource_description}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Box>
-    </Container>
-  );
+
+        <Typography variant="h2" sx={{ marginBottom: '2rem', marginTop: '2rem' }}>
+  You Are Not Alone
+</Typography>
+<Box>
+  <Typography variant="body1" sx={{ marginBottom: '1rem' }}>National Suicide Prevention Lifeline: 1-800-273-8255</Typography>
+  <Typography variant="body1" sx={{ marginBottom: '1rem' }}>Crisis Text Line: Text "HOME" to 741741</Typography>
+  <Typography variant="body1" sx={{ marginBottom: '1rem' }}>Veterans Crisis Line: 1-800-273-8255 (Press 1)</Typography>
+  <Typography variant="body1" sx={{ marginBottom: '1rem' }}>LGBT National Help Center: 1-888-843-4564</Typography>
+  <Typography variant="body1" sx={{ marginBottom: '1rem' }}>TrevorLifeline (LGBTQ+): 1-866-488-7386</Typography>
+  <Typography variant="body1" sx={{ marginBottom: '1rem' }}>Trans Lifeline: 1-877-565-8860</Typography>
+</Box>
+</Box>
+</Container>
+);
 };
+
 export default ResourcesPage;
