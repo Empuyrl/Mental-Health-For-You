@@ -128,8 +128,8 @@ const DepressionPage = () => {
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
-              <Typography>Over the last two weeks, how often have you been bothered by the following problems?</Typography>
-              <Typography>0 - Not at all, 1 - Several days, 2 - More than half the days, 3 - Nearly every day</Typography>
+              <Typography variant="h6">Over the last two weeks, how often have you been bothered by the following problems?</Typography>
+              <Typography variant="h6">0 - Not at all, 1 - Several days, 2 - More than half the days, 3 - Nearly every day</Typography>
             </Box>
             {questions.map((question, i) => (
               <Box key={i} sx={{ mb: 2 }}>
@@ -152,7 +152,7 @@ const DepressionPage = () => {
               </Box>
             ))}
             <Box sx={{ mb: 2 }}>
-              <Typography>Score Message: {scoreMessage}</Typography>
+              <Typography> {scoreMessage}</Typography>
               <Button type="submit"
                 variant="contained"
                 sx={{

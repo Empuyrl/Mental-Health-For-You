@@ -133,8 +133,8 @@ function StressPage() {
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
-              <Typography>Over the last month, how often have you been bothered by the following problems?</Typography>
-              <Typography>0 - Never, 1 - Almost never, 2 - Sometimes, 3 - Fairly often, 4 - Very often</Typography>
+              <Typography variant="h6">Over the last month, how often have you been bothered by the following problems?</Typography>
+              <Typography variant="h6">0 - Never, 1 - Almost never, 2 - Sometimes, 3 - Fairly often, 4 - Very often</Typography>
             </Box>
             {questions.map((question, i) => (
               <Box key={i} sx={{ mb: 2 }}>
@@ -155,7 +155,7 @@ function StressPage() {
               </Box>
             ))}
             <Box sx={{ mb: 2 }}>
-              <Typography>Score Message: {scoreMessage}</Typography>
+              <Typography> {scoreMessage}</Typography>
               <Button type="submit"
                 variant="contained"
                 sx={{
