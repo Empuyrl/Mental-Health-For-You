@@ -1,3 +1,4 @@
+// NotebookPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import JournalModal from '../../JournalModal/JournalModal';
@@ -21,6 +22,17 @@ const Title = styled(Typography)(({ theme }) => ({
   fontSize: '2rem',
   fontWeight: 'bold',
   margin: '2rem 0',
+}));
+
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  marginTop: '20px',
+  height: '450px',
+  overflow: 'auto',
+  backgroundColor: 'lightblue', // Change the background color here
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  backgroundColor: 'lightblue', // Change the background color here
 }));
 
 const NotebookPage = () => {
@@ -48,10 +60,7 @@ const NotebookPage = () => {
     }
   };
 
-  const entriesByCategory = entries.reduce((acc, entry) => {
-    (acc[entry.category] = acc[entry.category] || []).push(entry);
-    return acc;
-  }, {});
+  const combinedEntries = entries.slice().reverse();
 
   return (
     <div className="background-gradient">
@@ -60,36 +69,38 @@ const NotebookPage = () => {
           <Title variant="h2">Embrace: A Journey to Mental Wellness</Title>
           <JournalButton setIsModalOpen={setIsModalOpen} />
         </Box>
-        {Object.entries(entriesByCategory).map(([category, entries]) => (
-          <TableContainer component={Paper} elevation={3} sx={{ marginTop: '20px', height: '200px', overflow: 'auto'  }} key={category}>
-            <Table sx={{ minWidth: 700, marginBottom: '20px' }} align="center">
-              <TableHead>
-                <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                  <TableCell align="center">{category}</TableCell>
-                  <TableCell align="center">Edit</TableCell>
-                  <TableCell align="center">Delete</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {entries.reverse().map((entry) => (
-                  <TableRow  sx={{ backgroundColor: '#f5f5f5' }} key={entry.id}>
-                    <TableCell align="center" onClick={() => handleEditClick(entry)}>{entry.entry_text}</TableCell>
-                    <TableCell align="center">
-                      <IconButton onClick={() => handleEditClick(entry)}>
-                        <EditIcon />
-                      </IconButton>
-                    </TableCell>
-                    <TableCell align="center">
-                      <IconButton onClick={() => handleDeleteClick(entry)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        ))}
+        <StyledTableContainer component={Paper} elevation={3}>
+          <Table sx={{ minWidth: 700, marginBottom: '20px' }} align="center">
+            <TableHead>
+              <StyledTableRow>
+                <TableCell align="center">Category</TableCell>
+                <TableCell align="center">Entry Text</TableCell>
+                <TableCell align="center">Edit</TableCell>
+                <TableCell align="center">Delete</TableCell>
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {combinedEntries.map((entry) => (
+                <StyledTableRow key={entry.id}>
+                  <TableCell align="center">{entry.category}</TableCell>
+                  <TableCell align="center" onClick={() => handleEditClick(entry)}>
+                    {entry.entry_text}
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton onClick={() => handleEditClick(entry)}>
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton onClick={() => handleDeleteClick(entry)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
       </StyledContainer>
       {isModalOpen && <JournalModal currentEntry={currentEntry} setIsModalOpen={setIsModalOpen} />}
     </div>
