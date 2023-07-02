@@ -5,7 +5,7 @@ import JournalButton from '../../JournalModal/JournalButton';
 import { Box, Typography, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 
 const Container = styled(Box)(({ theme }) => ({
   background: `linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)`,
@@ -20,7 +20,7 @@ const Container = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
+const StyledButton = styled(Button)(({ theme }) => ({
   margin: theme.spacing(0.5),
   fontSize: '1.2rem',
   fontWeight: 'bold',
@@ -46,6 +46,12 @@ const ResourcesPage = () => {
     resource_type: '',
     resource_description: '',
     resource_link: ''
+  });
+
+  const [openTables, setOpenTables] = useState({
+    depression: false,
+    anxiety: false,
+    stress: false
   });
 
   const handleInputChange = (event) => {
@@ -82,8 +88,20 @@ const ResourcesPage = () => {
     dispatch({ type: 'DELETE_RESOURCE', payload: id });
   };
 
+  const toggleTable = (resourceType) => {
+    setOpenTables(prevState => ({
+      ...prevState,
+      [resourceType]: !prevState[resourceType]
+    }));
+  };
+
   const createResourceTable = (resourceType) => {
+    if (!openTables[resourceType]) {
+      return null;
+    }
+
     const filteredResources = resources.filter((resource) => resource.resource_type === resourceType);
+
 
     return (
       <StyledTableContainer component={Paper}>
@@ -155,20 +173,20 @@ const ResourcesPage = () => {
         </form>
       </Box>
       <Box>
-        <StyledLink to="/resources?type=depression">
-          Depression Resources
-        </StyledLink>
-        {createResourceTable('depression')}
+        <StyledButton onClick={() => toggleTable('depression')}>
+          Depression
+        </StyledButton>
+        {openTables['depression'] && createResourceTable('depression')}
 
-        <StyledLink to="/resources?type=anxiety">
-          Anxiety Resources
-        </StyledLink>
-        {createResourceTable('anxiety')}
+        <StyledButton onClick={() => toggleTable('anxiety')}>
+          Anxiety
+        </StyledButton>
+        {openTables['anxiety'] && createResourceTable('anxiety')}
 
-        <StyledLink to="/resources?type=stress">
-          Stress Resources
-        </StyledLink>
-        {createResourceTable('stress')}
+        <StyledButton onClick={() => toggleTable('stress')}>
+          Stress
+        </StyledButton>
+        {openTables['stress'] && createResourceTable('stress')}
       </Box>
       <Box>
         <Typography variant="h2" sx={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 'bold', marginTop: '5rem' }}>Suicide Prevention Resources</Typography>
@@ -185,5 +203,4 @@ const ResourcesPage = () => {
     </Container>
   );
 };
-
 export default ResourcesPage;
