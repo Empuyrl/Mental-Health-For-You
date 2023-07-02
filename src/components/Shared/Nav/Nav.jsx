@@ -38,16 +38,16 @@ function Nav() {
                 Profile
               </Link> */}
               <Link className="navLink" to="/depression">
-                Depression Page
+                Depression
               </Link>
               <Link className="navLink" to="/stress">
-                Stress Page
+                Stress
               </Link>
               <Link className="navLink" to="/anxiety">
-                Anxiety Page
+                Anxiety
               </Link>
               <Link className="navLink" to="/results">
-                Results Page
+                Results
               </Link>
               <Link className="navLink" to="/resources">
                 Materials
