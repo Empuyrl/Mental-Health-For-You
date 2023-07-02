@@ -1,52 +1,69 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Select, MenuItem, FormControl, InputLabel, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const categories = ["Depression", "Stress", "Anxiety", "General"]; 
 
 const JournalModal = ({ currentEntry, setIsModalOpen }) => {
-  console.log(setIsModalOpen);
-
   const dispatch = useDispatch();
   const [entryText, setEntryText] = useState(currentEntry ? currentEntry.entry_text : '');
   const [category, setCategory] = useState(currentEntry ? currentEntry.category : categories[0]);
 
- // Dispatch action to add or update the entry when form is submitted
- const handleSubmit = (event) => {
-  event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  console.log('entryText:', entryText);
-  console.log('category:', category);
+    if(currentEntry) {
+      dispatch({
+        type: 'UPDATE_JOURNAL_ENTRY',
+        payload: {
+          id: currentEntry.id,
+          entry_text: entryText,
+          category: category,
+        },
+      });
+    } else {
+      dispatch({
+        type: 'ADD_JOURNAL_ENTRY',
+        payload: { entry_text: entryText, category: category }
+      });
+    }
 
-  if(currentEntry) {
-    dispatch({
-      type: 'UPDATE_JOURNAL_ENTRY',
-      payload: {
-        id: currentEntry.id,
-        entry_text: entryText,
-        category: category,
-      },
-    });
-  } else {
-    dispatch({
-      type: 'ADD_JOURNAL_ENTRY',
-      payload: { entry_text: entryText, category: category }
-    });
-  }
+    setIsModalOpen(false);
+  };
 
-  // Close the modal after saving
-  setIsModalOpen(false);
-};
-
-return (
-  <form onSubmit={handleSubmit}>
-    <textarea value={entryText} onChange={(e) => setEntryText(e.target.value)} />
-    <select value={category} onChange={(e) => setCategory(e.target.value)}>
-      {categories.map((category, index) => <option value={category} key={index}>{category}</option>)}
-    </select>
-    <button type="submit">Save</button>
-    <button type="button" onClick={() => setIsModalOpen(false)}>Cancel</button>
-  </form>
-);
+  return (
+    <Dialog open={setIsModalOpen} onClose={() => setIsModalOpen(false)} maxWidth="md" fullWidth>
+      <DialogTitle>Journal Entry</DialogTitle>
+      <DialogContent>
+        <FormControl fullWidth margin="normal">
+          <TextField 
+            label="Entry Text"
+            multiline
+            rows={4}
+            variant="outlined"
+            value={entryText}
+            onChange={(e) => setEntryText(e.target.value)}
+          />
+        </FormControl>
+        <FormControl fullWidth margin="normal">
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map((category, index) => <MenuItem value={category} key={index}>{category}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
+        <Button onClick={handleSubmit} color="primary">Save</Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
 
 export default JournalModal;

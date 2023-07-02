@@ -41,6 +41,7 @@ function AboutPage() {
         }}
       >
         About Mind Matters
+        <JournalButton />
       </Typography>
       <Paper elevation={3} sx={{ padding: '1.5rem', marginBottom: '1rem' }}>
         <Typography variant="body1" align="center" fontWeight="bold">
@@ -62,7 +63,6 @@ function AboutPage() {
           Thank you for joining us on this journey towards mental well-being. Remember, seeking help and support is a sign of strength, and together, we can create a positive impact on the mental health of individuals worldwide.
         </Typography>
       </Paper>
-      <JournalButton />
     </Box>
   );
 }

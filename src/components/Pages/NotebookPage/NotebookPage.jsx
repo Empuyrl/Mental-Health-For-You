@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import JournalModal from '../../JournalModal/JournalModal';
-import { Typography, Box } from '@mui/material';
+import JournalButton from '../../JournalModal/JournalButton';
+import { Container, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/system';
 
-const Container = styled(Box)(({ theme }) => ({
-  background: `url(https://www.photos-public-domain.com/wp-content/uploads/2011/01/yellow-notebook-paper-texture.jpg)`,
+const StyledContainer = styled(Container)(({ theme }) => ({
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   textAlign: 'center',
-  marginTop: '2rem',
-  padding: '2rem', // Optional padding to create some spacing around the content
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Optional box shadow for a paper-like effect
+  marginTop: '0',
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -53,24 +54,45 @@ const NotebookPage = () => {
   }, {});
 
   return (
-    <Container>
-      <Title variant="h2">Embrace: A Journey to Mental Wellness</Title>
-      <button onClick={() => { setCurrentEntry(null); setIsModalOpen(true); }}>Open Journal</button>
-      {Object.entries(entriesByCategory).map(([category, entries]) => (
-        <div key={category}>
-          <h2>{category}</h2>
-          {entries.map((entry) => (
-            <div key={entry.id}>
-              <div onClick={() => handleEditClick(entry)}>
-                {entry.entry_text}
-              </div>
-              <button onClick={() => handleDeleteClick(entry)}>Delete</button>
-            </div>
-          ))}
-        </div>
-      ))}
+    <div className="background-gradient">
+      <StyledContainer>
+        <Box textAlign="center" marginTop={2}>
+          <Title variant="h2">Embrace: A Journey to Mental Wellness</Title>
+          <JournalButton setIsModalOpen={setIsModalOpen} />
+        </Box>
+        {Object.entries(entriesByCategory).map(([category, entries]) => (
+          <TableContainer component={Paper} elevation={3} sx={{ marginTop: '20px', height: '200px', overflow: 'auto'  }} key={category}>
+            <Table sx={{ minWidth: 700, marginBottom: '20px' }} align="center">
+              <TableHead>
+                <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
+                  <TableCell align="center">{category}</TableCell>
+                  <TableCell align="center">Edit</TableCell>
+                  <TableCell align="center">Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {entries.reverse().map((entry) => (
+                  <TableRow  sx={{ backgroundColor: '#f5f5f5' }} key={entry.id}>
+                    <TableCell align="center" onClick={() => handleEditClick(entry)}>{entry.entry_text}</TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => handleEditClick(entry)}>
+                        <EditIcon />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => handleDeleteClick(entry)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ))}
+      </StyledContainer>
       {isModalOpen && <JournalModal currentEntry={currentEntry} setIsModalOpen={setIsModalOpen} />}
-    </Container>
+    </div>
   );
 };
 
