@@ -5,29 +5,19 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, S
 
 const categories = ["Depression", "Stress", "Anxiety", "General"]; 
 
-const JournalModal = ({ currentEntry, setIsModalOpen }) => {
+const JournalModal = ({ setIsModalOpen }) => {
   const dispatch = useDispatch();
-  const [entryText, setEntryText] = useState(currentEntry ? currentEntry.entry_text : '');
-  const [category, setCategory] = useState(currentEntry ? currentEntry.category : categories[0]);
+
+  const [entryText, setEntryText] = useState('');
+  const [category, setCategory] = useState(categories[0]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if(currentEntry) {
-      dispatch({
-        type: 'UPDATE_JOURNAL_ENTRY',
-        payload: {
-          id: currentEntry.id,
-          entry_text: entryText,
-          category: category,
-        },
-      });
-    } else {
-      dispatch({
-        type: 'ADD_JOURNAL_ENTRY',
-        payload: { entry_text: entryText, category: category }
-      });
-    }
+    dispatch({
+      type: 'ADD_JOURNAL_ENTRY',
+      payload: { entry_text: entryText, category: category }
+    });
 
     setIsModalOpen(false);
   };

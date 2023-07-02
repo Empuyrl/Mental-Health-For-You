@@ -46,11 +46,6 @@ const NotebookPage = () => {
     dispatch({ type: 'FETCH_JOURNAL_ENTRIES' });
   }, [dispatch]);
 
-  const handleEditClick = (entry) => {
-    setCurrentEntry(entry);
-    setIsModalOpen(true);
-  };
-
   const handleDeleteClick = (entry) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -81,6 +76,30 @@ const NotebookPage = () => {
       }
     })
   };
+
+  const handleEditClick = (entry) => {
+    Swal.fire({
+      title: 'Edit Entry Text',
+      input: 'text',
+      inputValue: entry.entry_text,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      confirmButtonColor: '#3085d6', // blue color
+      cancelButtonText: 'Cancel',
+      cancelButtonColor: '#d33', // red color
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({
+          type: 'UPDATE_JOURNAL_ENTRY',
+          payload: { id: entry.id, entry_text: result.value },
+        });
+        Swal.fire('Updated!', 'Your entry has been updated.', 'success');
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'Your update has been cancelled.', 'error');
+      }
+    });
+  };
+
 
   const combinedEntries = entries.slice().reverse();
 
