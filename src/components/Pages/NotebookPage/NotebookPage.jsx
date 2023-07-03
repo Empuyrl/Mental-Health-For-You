@@ -28,11 +28,11 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   marginTop: '20px',
   height: '450px',
   overflow: 'auto',
-  backgroundColor: 'lightpink', // Change the background color here
+  backgroundColor: 'beige', // Change the background color here
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  backgroundColor: 'lightpink', // Change the background color here
+  backgroundColor: 'beige', // Change the background color here
 }));
 
 const NotebookPage = () => {
