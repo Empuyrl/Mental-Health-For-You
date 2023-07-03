@@ -37,33 +37,20 @@ const StyledTableContainer = styled(TableContainer)({
 });
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  backgroundColor: 'lightpink', // Change the background color to light pink
+  backgroundColor: 'lightpink',  // light pink
   '&:last-child': {
-    backgroundColor: 'lightpink', // Keep the same background color for the last child
+    backgroundColor: 'lightpink',  // light pink
     '& .MuiIconButton-root': {
-      backgroundColor: 'lightpink', // Keep the same background color for the icon button
-    },
+      backgroundColor: 'lightpink', // light pink
+    }
   },
 }));
 
 const StyledTextField = styled(TextField)({
   '& .MuiInputBase-input': {
     color: 'black', // Change text color
+    backgroundColor: 'lightpink',  // Background color for the TextField
   },
-  '& .Mui-focused': {
-    color: 'black', // Keep text color black on focus
-  },
-  '& .MuiInput-underline:before': {
-    borderBottomColor: 'black', // Change underline color
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'black', // Keep underline color black on focus
-  },
-  '&:hover .MuiInput-underline:before': {
-    borderBottomColor: 'black', // Change underline color on hover
-  },
-  backgroundColor: 'lightpink',  // Adding a light grey color for the TextField background
-
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: 'black',
@@ -75,12 +62,6 @@ const StyledTextField = styled(TextField)({
       borderColor: 'black',
     },
   },
-  '& .MuiOutlinedInput-input': {
-    backgroundColor: 'lightpink', // Same color as the TextField background
-  },
-  '& .MuiFilledInput-root': {
-    backgroundColor: 'lightpink', // Same color as the TextField background
-  }
 });
 
 const ResourcesPage = () => {
@@ -312,26 +293,40 @@ const ResourcesPage = () => {
       </Typography>
       <Box>
         <form onSubmit={handleSubmit}>
-          <StyledTextField
+
+          <TextField
             name="resource_type"
             label="Resource Type"
             value={newResource.resource_type}
             onChange={handleInputChange}
             required
+            InputProps={{
+              style: { backgroundColor: 'lightpink', color: 'black' }
+            }}
           />
-          <StyledTextField
+          <TextField
             name="resource_description"
             label="Resource Description"
             value={newResource.resource_description}
             onChange={handleInputChange}
             required
+            multiline
+            InputProps={{
+              style: { backgroundColor: 'lightpink', color: 'black' },
+              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
+            }}
           />
-          <StyledTextField
+          <TextField
             name="resource_link"
             label="Resource Link"
             value={newResource.resource_link}
             onChange={handleInputChange}
             required
+            multiline
+            InputProps={{
+              style: { backgroundColor: 'lightpink', color: 'black' },
+              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
+            }}
           />
           <Button type="submit" variant="contained" color="primary" sx={{ '&:hover': { backgroundColor: 'green' } }}>
             Add Resource
