@@ -27,7 +27,7 @@ const JournalModal = ({ setIsModalOpen }) => {
       onClose={() => setIsModalOpen(false)}
       maxWidth="md"
       fullWidth
-      PaperProps={{ style: { backgroundColor: 'lightpink' } }} // Set the background color here
+      PaperProps={{ style: { backgroundColor: ' beige ' } }} // Set the background color here
     >
       <DialogTitle>Journal Entry</DialogTitle>
       <DialogContent>
