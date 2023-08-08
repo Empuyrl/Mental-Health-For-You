@@ -90,6 +90,10 @@ const ResourcesPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!newResource.resource_type || !newResource.resource_description || !newResource.resource_link)
+
+    return;
+    
     const currentDate = new Date().toISOString();
 
     // Add SweetAlert
