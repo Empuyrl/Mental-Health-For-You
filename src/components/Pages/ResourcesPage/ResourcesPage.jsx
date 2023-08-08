@@ -93,7 +93,7 @@ const ResourcesPage = () => {
     if (!newResource.resource_type || !newResource.resource_description || !newResource.resource_link)
 
     return;
-    
+
     const currentDate = new Date().toISOString();
 
     // Add SweetAlert
@@ -304,6 +304,7 @@ const ResourcesPage = () => {
             value={newResource.resource_type}
             onChange={handleInputChange}
             required
+            maxLength={50}
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' }
             }}
@@ -314,6 +315,7 @@ const ResourcesPage = () => {
             value={newResource.resource_description}
             onChange={handleInputChange}
             required
+            maxLength={150}
             multiline
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' },
