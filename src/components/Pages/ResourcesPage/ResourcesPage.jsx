@@ -92,7 +92,7 @@ const ResourcesPage = () => {
     event.preventDefault();
     if (!newResource.resource_type || !newResource.resource_description || !newResource.resource_link)
 
-    return;
+      return;
 
     const currentDate = new Date().toISOString();
 
@@ -334,6 +334,11 @@ const ResourcesPage = () => {
               inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
             }}
           />
+
+          {/* URL Preview */}
+          {newResource.resource_link && (
+            <iframe src={newResource.resource_link} title="URL Preview" width="100%" height="300"></iframe>
+          )}
           <Button type="submit" variant="contained" color="primary" sx={{ '&:hover': { backgroundColor: 'green' } }}>
             Add Resource
           </Button>
