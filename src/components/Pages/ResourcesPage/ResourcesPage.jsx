@@ -94,6 +94,18 @@ const ResourcesPage = () => {
 
       return;
 
+    // Check for duplicate entry
+    const isDuplicate = resources.some(
+      (resource) =>
+        resource.resource_description === newResource.resource_description &&
+        resource.resource_link === newResource.resource_link
+    );
+
+    if (isDuplicate) {
+      // Display an error message or UI feedback indicating duplicate entry
+      return;
+    }
+
     const currentDate = new Date().toISOString();
 
     // Add SweetAlert
@@ -319,7 +331,7 @@ const ResourcesPage = () => {
             multiline
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' },
-              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
+              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } }
             }}
           />
           <TextField
@@ -331,7 +343,7 @@ const ResourcesPage = () => {
             multiline
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' },
-              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
+              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } }
             }}
           />
 
