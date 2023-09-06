@@ -8,7 +8,7 @@ Mind Matters is a web application dedicated to fostering mental health resilienc
 
 2. Results Component (Results.js): This component displays the assessment results for depression, anxiety, and stress. It calculates severity levels based on the assessment scores and provides explanations of the severity levels. Users can understand their mental health status and seek appropriate help if needed.
 
-3. ResourceCard Component (ResourceCard.js): This component represents a card that displays mental health resources. It includes the type of resource, a description, and a link to access the resource. Users can explore curated resources related to mental health topics.
+3. Resources Component (ResourcesPage.js): This component represents a card that displays mental health resources. It includes the type of resource, a description, and a link to access the resource. Users can explore curated resources related to mental health topics.
 
 4. JournalModal Component (JournalModal.js): This component renders a modal where users can write, save, and manage their journal entries. It provides a private space for users to reflect on their thoughts and emotions, contributing to their emotional well-being.
 
