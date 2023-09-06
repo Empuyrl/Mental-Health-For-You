@@ -1,110 +1,86 @@
+## Welcome to Mind Matters
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+Mind Matters is a web application dedicated to fostering mental health resilience and self-discovery. This project aims to provide resources, tools, and a supportive community for individuals facing various mental health challenges. With features like self-assessment quizzes, reflective journaling, and access to professional mental health resources, Mind Matters strives to empower users on their mental health journey.
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+## MAIN Features
 
-## Use the Template for This Repository (Don't Clone)
+1. AboutPage Component (AboutPage.js): This component provides detailed information about the Mind Matters project. It explains the project's purpose, goals, commitment to mental health, available resources, and the technologies used in its development.
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+2. Results Component (Results.js): This component displays the assessment results for depression, anxiety, and stress. It calculates severity levels based on the assessment scores and provides explanations of the severity levels. Users can understand their mental health status and seek appropriate help if needed.
 
+3. Resources Component (ResourcesPage.js): This component represents a card that displays mental health resources. It includes the type of resource, a description, and a link to access the resource. Users can explore curated resources related to mental health topics.
 
-## Prerequisites
+4. JournalModal Component (JournalModal.js): This component renders a modal where users can write, save, and manage their journal entries. It provides a private space for users to reflect on their thoughts and emotions, contributing to their emotional well-being.
 
-Before you get started, make sure you have the following software installed on your computer:
+5. UserPage Component (UserPage.js): This component serves as the user's homepage and provides quick access to different features, including the assessment questionnaires for depression, anxiety, and stress. It offers a central hub for users to engage with various tools and resources.
 
-- [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
+6. Depression Assessment Component (DepressionAssessment.js): This component renders the questionnaire for assessing depression symptoms. Users can answer a series of questions, and the app calculates their depression score and severity level based on their responses.
 
-## Create database and table
+7. Anxiety Assessment Component (AnxietyAssessment.js): Similar to the depression assessment, this component provides a questionnaire to assess anxiety symptoms. It calculates the anxiety score and severity level based on the user's answers.
 
-Create a new database called `prime_app` and create a `user` table:
+8. Stress Assessment Component (StressAssessment.js): This component presents the questionnaire for assessing stress levels. Users' responses are used to calculate their stress score and severity level.
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+These components collectively form the core features of the Mind Matters app, catering to users' mental health needs through self-assessment, resource access, journaling, and providing valuable insights into their mental well-being. The app aims to create a supportive and informative environment for users to prioritize their mental health.
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+## Landing Page:
+The Landing Page welcomes users to Mind Matters, a digital sanctuary dedicated to fostering mental health resilience and self-discovery. Users are greeted with a powerful headline and a brief introduction. The page explains how Mind Matters empowers users through self-assessment quizzes, reflective journaling, and access to mental health resources. Users can dive into their mental health journey, either by taking the quizzes or exploring further resources.
 
-## Development Setup Instructions
+## Results Page:
+The Results Page provides users with personalized insights into their mental health assessment scores. Users can view their depression, anxiety, and stress scores, along with corresponding severity levels. The page explains what each severity level indicates and offers guidance on seeking professional help if necessary. Users gain a deeper understanding of their mental well-being and are encouraged to take proactive steps towards improving their mental health.
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+## Resource Page:
+The Resource Page serves as a hub for accessing valuable mental health resources. Users can explore a curated collection of articles, blogs, forums, and other materials related to depression, anxiety, stress, and more. Each resource is accompanied by a description and a direct link for easy access. Users can learn more about their mental health concerns, coping strategies, and professional assistance options through these resources.
 
-## Debugging
+## Journal/Notebook Page:
+The Journal/Notebook Page offers users a private space for self-reflection and emotional expression. Users can write and save journal entries, documenting their thoughts, feelings, and experiences. Journaling promotes self-awareness, personal growth, and emotional well-being. Users can revisit their entries over time, track their progress, and gain insights into their emotional journey.
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+## Depression, Anxiety, and Stress Quizzes:
+The Depression, Anxiety, and Stress Quizzes provide users with self-assessment tools to gauge their mental well-being in these specific areas. Users answer a series of questions related to each topic, and the app calculates their assessment scores. Based on the scores, users are informed about the severity level of their symptoms. These quizzes offer users a starting point to understand their mental health status and guide them towards seeking appropriate support if needed.
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+## Database Schema
+We use a PostgreSQL database to store user information, assessment responses, journal entries, and resources. Below is the database schema:
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+## User Table
+id: Unique identifier for each user.
+username: User's username (max 80 characters), must be unique.
+password: Hashed password (max 1000 characters).
+## Entries Table
+id: Unique identifier for each journal entry.
+entry_text: Text content of the journal entry.
+user_id: References the corresponding user who created the entry.
+createdate: Timestamp for when the entry was created.
+category: Category of the entry (default: 'general').
+## Response Table
+id: Unique identifier for each assessment response.
+user_id: References the corresponding user who took the assessment.
+questionnaire_type: Type of assessment (e.g., depression, anxiety, stress).
+score: Assessment score.
+createdate: Timestamp for when the response was recorded.
+## Resources Table
+id: Unique identifier for each mental health resource.
+resource_type: Type of resource (e.g., article, blog, forum).
+resource_link: URL link to the resource.
+resource_description: Description of the resource.
+createdate: Timestamp for when the resource was added.
+user_id: References the user who added the resource (optional).
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
-
-## Testing Routes with Postman
-
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
-
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
-
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
-
-After running the login route above, you can try any other route you've created that requires a logged in user!
-
-## Production Build
-
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
-
-## Lay of the Land
-
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
-
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
-
-Directory Structure:
-
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
+## Technologies Used
+React: JavaScript library for building user interfaces.
+Redux: Predictable state container for managing app state.
+Redux-Saga: Middleware for managing side effects in Redux.
+React-Router-DOM: DOM bindings for routing in React.
+Material UI: React UI framework for creating visually appealing components.
+Express: Fast and minimalist web framework for Node.js.
+Node.js: JavaScript runtime for server-side development.
+Passport.js: Authentication middleware for Node.js.
+PostgreSQL: Relational database management system.
+Axios: Promise-based HTTP client for making API requests.
+bcryptjs: Library for hashing passwords securely.
+CSS: Stylesheet language for styling HTML documents.
+Jest: Testing framework for JavaScript applications.
+Supertest: Library for testing HTTP requests in Node.js.
+Nodemon: Utility for auto-restarting Node.js applications during development.
+Dotenv: Module for loading environment variables from a .env file.
 
 ## Deployment
 
@@ -116,6 +92,4 @@ This code is also heavily commented. We recommend reading through the comments, 
 1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
 1. In the deploy section, select manual deploy
 
-## Update Documentation
 
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2

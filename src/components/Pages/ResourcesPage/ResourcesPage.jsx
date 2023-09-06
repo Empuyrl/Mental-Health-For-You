@@ -90,6 +90,22 @@ const ResourcesPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!newResource.resource_type || !newResource.resource_description || !newResource.resource_link)
+
+      return;
+
+    // Check for duplicate entry
+    const isDuplicate = resources.some(
+      (resource) =>
+        resource.resource_description === newResource.resource_description &&
+        resource.resource_link === newResource.resource_link
+    );
+
+    if (isDuplicate) {
+      // Display an error message or UI feedback indicating duplicate entry
+      return;
+    }
+
     const currentDate = new Date().toISOString();
 
     // Add SweetAlert
@@ -300,6 +316,7 @@ const ResourcesPage = () => {
             value={newResource.resource_type}
             onChange={handleInputChange}
             required
+            maxLength={50}
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' }
             }}
@@ -310,10 +327,11 @@ const ResourcesPage = () => {
             value={newResource.resource_description}
             onChange={handleInputChange}
             required
+            maxLength={150}
             multiline
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' },
-              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
+              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } }
             }}
           />
           <TextField
@@ -325,9 +343,14 @@ const ResourcesPage = () => {
             multiline
             InputProps={{
               style: { backgroundColor: 'lightpink', color: 'black' },
-              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } } // This line is added
+              inputProps: { style: { backgroundColor: 'lightpink', color: 'black' } }
             }}
           />
+
+          {/* URL Preview */}
+          {newResource.resource_link && (
+            <iframe src={newResource.resource_link} title="URL Preview" width="100%" height="300"></iframe>
+          )}
           <Button type="submit" variant="contained" color="primary" sx={{ '&:hover': { backgroundColor: 'green' } }}>
             Add Resource
           </Button>
